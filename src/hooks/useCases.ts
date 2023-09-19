@@ -1,5 +1,5 @@
 import useDataFetching from "./useData";
-import Case, { Clients } from "../data/models";
+import {Case,  Clients } from "../data/models";
 import { AxiosRequestConfig } from "axios";
 
 const useCases = (selectedClient: Clients | null, requestConfig?: AxiosRequestConfig) => {

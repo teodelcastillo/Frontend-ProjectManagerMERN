@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
-import { Clients } from "../data/models";
+import { Appointments } from "../data/models";
 
-const useClients = () => {
-  const [clients, setClients] = useState<Clients[]>([]);
+const useAppointments = (entityType: string, entityId: string) => {
+  const [appointments, setAppointments] = useState<Appointments[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -13,9 +13,9 @@ const useClients = () => {
 
     setLoading(true);
     apiClient
-      .get<Clients[]>("/clients", { signal: controller.signal })
+      .get<Appointments[]>(`/appointments?entityType=${entityType}&entityId=${entityId}`, { signal: controller.signal })
       .then((res) => {
-        setClients(res.data);
+        setAppointments(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -25,9 +25,9 @@ const useClients = () => {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [entityType, entityId]);
 
-  return { clients, error, isLoading };
+  return { appointments, error, isLoading };
 };
 
-export default useClients;
+export default useAppointments;
