@@ -9,7 +9,7 @@ import {
   TagCloseButton,
 } from "@chakra-ui/react";
 import CaseCard from "./CaseCard";
-import Case, { Clients } from "../data/models";
+import { Case, Clients } from "../data/models";
 import { SmallAddIcon } from "@chakra-ui/icons";
 import SearchInput from "./SearchInput";
 
@@ -22,11 +22,7 @@ const CasesGrid: React.FC<CasesGridProps> = ({ selectedClient }) => {
     ? `/cases?caseClientID=${selectedClient["_id"]}`
     : "/cases";
 
-  const {
-    data: allCases,
-    error,
-    isLoading,
-  } = useDataFetching<Case[]>(endpoint);
+  const { data: allCases, isLoading } = useDataFetching<Case>(endpoint);
 
   const [searchText, setSearchText] = useState<string>(""); // State for search text
   const limit: number = 11; // Limit of cases per page
@@ -35,29 +31,12 @@ const CasesGrid: React.FC<CasesGridProps> = ({ selectedClient }) => {
     setSearchText("");
   };
 
-  function filterCases(
-    allCases: Case[],
-    selectedClient: Clients | null,
-    searchText: string
-  ): Case[] {
-    return allCases.filter((caseItem) => {
-      const isClientMatch =
-        !selectedClient || caseItem.caseClientID === selectedClient._id;
-      const isNameMatch =
-        searchText === "" ||
-        caseItem.caseName.toLowerCase().includes(searchText.toLowerCase());
-
-      return isClientMatch && isNameMatch;
-    });
-  }
-
   useEffect(() => {
     if (isLoading) {
       return;
     }
 
     // Calculate the range of cases to display based on the current number of cases to display
-    const filteredCases = filterCases(allCases, selectedClient, searchText);
     setCasesToDisplay(limit);
   }, [selectedClient, allCases, searchText, isLoading]);
 
