@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import apiClient from "../services/api-client";
 import { AxiosRequestConfig, CanceledError } from "axios";
 
-const useDataFetching = <T>(
+const UseData = <T>(
   endpoint: string,
   requestConfig?: AxiosRequestConfig
 ) => {
@@ -32,4 +32,4 @@ const useDataFetching = <T>(
   return { data, error, isLoading };
 };
 
-export default useDataFetching;
+export default UseData;

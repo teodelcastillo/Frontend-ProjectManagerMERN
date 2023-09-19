@@ -1,20 +1,36 @@
-import { useEffect } from "react";
-import useDataFetching from "./useData"; // Import your useDataFetching hook
+// useAppointments.ts
+import { useState, useEffect } from "react";
+import apiClient from "../services/api-client";
+import { CanceledError } from "axios";
 import { Appointments } from "../data/models";
 
 const useAppointments = (entityType: string, entityId: string) => {
-  // Use the useDataFetching hook to fetch appointments data
-  const { data: appointments, error, isLoading } = useDataFetching<Appointments[]>(
-    `/appointments?entityType=${entityType}&entityId=${entityId}`
-  );
-
-  // You can add additional error handling here if needed
+  const [appointments, setAppointments] = useState<Appointments[]>([]);
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    // If you need to perform any additional logic when appointments data changes, you can do it here.
-  }, [appointments]);
+    const controller = new AbortController();
 
-  // Return the appointments data and loading state from useDataFetching
+    setLoading(true);
+    apiClient
+      .get<Appointments[]>(
+        `/appointments?entityType=${entityType}&entityId=${entityId}`,
+        { signal: controller.signal }
+      )
+      .then((res) => {
+        setAppointments(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [entityType, entityId]);
+
   return { appointments, error, isLoading };
 };
 
