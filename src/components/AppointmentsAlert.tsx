@@ -10,7 +10,7 @@ const AppointmentsAlert = () => {
     <Alert status="error">
       <AlertIcon />
       <AlertTitle>Proximo vencimiento:</AlertTitle>
-      <AlertDescription>Render variable data</AlertDescription>
+      <AlertDescription>DINAMIC DATE</AlertDescription>
     </Alert>
   );
 };

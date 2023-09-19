@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import useDataFetching from "../hooks/useData";
+
 import {
   SimpleGrid,
   Button,
@@ -24,8 +25,8 @@ const CasesGrid: React.FC<CasesGridProps> = ({ selectedClient }) => {
 
   const { data: allCases, isLoading } = useDataFetching<Case>(endpoint);
 
-  const [searchText, setSearchText] = useState<string>(""); // State for search text
-  const limit: number = 11; // Limit of cases per page
+  const [searchText, setSearchText] = useState<string>("");
+  const limit: number = 11;
   const [casesToDisplay, setCasesToDisplay] = useState<number>(limit);
   const handleTagClose = () => {
     setSearchText("");

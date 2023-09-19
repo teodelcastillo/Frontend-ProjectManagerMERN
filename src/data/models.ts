@@ -20,11 +20,7 @@ export interface Case {
     type: string;
     date: Date;
     description: string;
-    relatedTo: RelatedEntity[];
-  }
-  
-  interface RelatedEntity {
-    type: string;
-    entityId: string;
+    entityID: string;
+    entityType: string;
   }
   
