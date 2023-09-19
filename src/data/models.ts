@@ -1,4 +1,4 @@
-export default interface Case {
+export interface Case {
     _id: string;
     caseClient: string;
     caseName: string;
@@ -10,12 +10,12 @@ export default interface Case {
   
   }
   
-  export default interface Clients {
+  export interface Clients {
     _id: string;
     clientName: string
   }
 
-  export default interface Appointments {
+  export interface Appointments {
     _id: string; 
     type: string;
     date: Date;
