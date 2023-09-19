@@ -10,7 +10,21 @@ export default interface Case {
   
   }
   
-  export interface Clients {
+  export default interface Clients {
     _id: string;
     clientName: string
   }
+
+  export default interface Appointments {
+    _id: string; 
+    type: string;
+    date: Date;
+    description: string;
+    relatedTo: RelatedEntity[];
+  }
+  
+  interface RelatedEntity {
+    type: string;
+    entityId: string;
+  }
+  
