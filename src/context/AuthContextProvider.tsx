@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, ReactNode, Dispatch } from "react";
+import React, {
+  createContext,
+  useReducer,
+  ReactNode,
+  Dispatch,
+  useEffect,
+} from "react";
 import { NewUser } from "../data/models";
 
 // Define types for your state and action objects
@@ -48,6 +54,15 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(authReducer, initialAuthState);
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+
+    if (userString) {
+      const user = JSON.parse(userString);
+      dispatch({ type: "LOGIN", payload: user });
+    }
+  }, []);
 
   console.log("AuthContext State: ", state);
 
