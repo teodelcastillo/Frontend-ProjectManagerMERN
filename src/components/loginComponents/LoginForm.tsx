@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
+import HomeNavBar from "../homePageComponents/HomeNavBar";
 
 const LoginForm = () => {
   const { login, isLoading, error } = useLogin();
@@ -33,37 +34,40 @@ const LoginForm = () => {
   };
 
   return (
-    <form className="Login-form" onSubmit={handleSubmit}>
-      {error && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>{error.error}</AlertTitle>
-        </Alert>
-      )}
-      <FormControl isRequired>
-        <FormLabel>Username</FormLabel>
-        <Input
-          type="text"
-          name="username"
-          placeholder="username"
-          onChange={handleInputChange}
-          value={formData.username}
-        />
-      </FormControl>
-      <FormControl isRequired>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          name="password"
-          placeholder="password"
-          onChange={handleInputChange}
-          value={formData.password}
-        />
-      </FormControl>
-      <Button type="submit" colorScheme="blue" isLoading={isLoading}>
-        Sign In
-      </Button>{" "}
-    </form>
+    <>
+      <HomeNavBar />
+      <form className="Login-form" onSubmit={handleSubmit}>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>{error.error}</AlertTitle>
+          </Alert>
+        )}
+        <FormControl isRequired>
+          <FormLabel>Username</FormLabel>
+          <Input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={handleInputChange}
+            value={formData.username}
+          />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={handleInputChange}
+            value={formData.password}
+          />
+        </FormControl>
+        <Button type="submit" colorScheme="blue" isLoading={isLoading}>
+          Sign In
+        </Button>{" "}
+      </form>
+    </>
   );
 };
 
