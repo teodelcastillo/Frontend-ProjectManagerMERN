@@ -1,5 +1,3 @@
-// NavBar.tsx
-import React from "react";
 import ClientsSearch from "./ClientsSearch";
 import { HStack } from "@chakra-ui/react";
 import { Clients } from "../data/models";
@@ -19,7 +17,6 @@ const NavBar = ({ selectedClient, onClientSelect, onSearch }: NavBarProps) => {
   return (
     <HStack padding="10px">
       {" "}
-      {/* Removed unnecessary fragment */}
       <ClientsSearch onClientSelect={onClientSelect} onSearch={onSearch} />
       <FilterLabel
         selectedClient={selectedClient}
