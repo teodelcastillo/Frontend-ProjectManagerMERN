@@ -1,36 +1,37 @@
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import React, { FormEvent, useState } from "react";
 
-// Define a TypeScript interface for your component's state
-interface SignupState {
-  username: string;
-  email: string;
-  password: string;
-}
-// Initialize state with an empty object of the defined interface
-const [formData, setFormData] = useState<SignupState>({
-  username: "",
-  email: "",
-  password: "",
-});
-
-// Define a function to handle form submission
-const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
-  // You can now access formData.username, formData.email, and formData.password here
-  console.log(formData);
-};
-
-// Define a function to update form data when input values change
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-};
-
 const SignupForm = () => {
+  // Define a TypeScript interface for your component's state
+  interface SignupState {
+    username: string;
+    email: string;
+    password: string;
+  }
+
+  // Initialize state with an empty object of the defined interface
+  const [formData, setFormData] = useState<SignupState>({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  // Define a function to handle form submission
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    // You can now access formData.username, formData.email, and formData.password here
+    console.log(formData);
+  };
+
+  // Define a function to update form data when input values change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       <FormControl isRequired>
