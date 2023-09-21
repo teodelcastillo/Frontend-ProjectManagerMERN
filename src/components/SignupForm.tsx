@@ -1,7 +1,18 @@
-import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
-import React, { FormEvent, useState } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
+import { FormEvent, useState } from "react";
+import { useSignup } from "../hooks/useSignup";
 
 const SignupForm = () => {
+  const { signup, isLoading, error } = useSignup();
+
   // Define a TypeScript interface for your component's state
   interface SignupState {
     username: string;
@@ -19,8 +30,8 @@ const SignupForm = () => {
   // Define a function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // You can now access formData.username, formData.email, and formData.password here
-    console.log(formData);
+    // Call the signup function from the useSignup hook with form data
+    await signup(formData.email, formData.username, formData.password);
   };
 
   // Define a function to update form data when input values change
@@ -34,6 +45,12 @@ const SignupForm = () => {
 
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
+      {error && (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>{error.error}</AlertTitle>
+        </Alert>
+      )}
       <FormControl isRequired>
         <FormLabel>Enter your email</FormLabel>
         <Input
@@ -64,7 +81,7 @@ const SignupForm = () => {
           value={formData.password}
         />
       </FormControl>
-      <Button type="submit" colorScheme="blue">
+      <Button type="submit" colorScheme="blue" isLoading={isLoading}>
         Sign Up
       </Button>
     </form>
