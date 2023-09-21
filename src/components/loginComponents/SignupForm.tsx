@@ -8,7 +8,7 @@ import {
   AlertTitle,
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
-import { useSignup } from "../hooks/useSignup";
+import { useSignup } from "../../hooks/useSignup";
 
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
