@@ -8,10 +8,10 @@ type SignupError = {
 
 type SignupResponse = {
   user: {
-    id: string;
     username: string;
     email: string;
-    // Add other user properties as needed
+    jwt: string
+
   };
 };
 
@@ -34,11 +34,20 @@ export const useSignup = () => {
       const errorData: SignupError = await response.json();
       setLoading(false);
       setError(errorData);
+
     } else {
       const json: SignupResponse = await response.json();
       localStorage.setItem('user', JSON.stringify(json.user));
       dispatch({ type: 'LOGIN', payload: json.user });
       setLoading(false);
+
+      // Save the user to local storage
+      localStorage.setItem('user', JSON.stringify(json))
+      
+      // update the auth context
+
+      dispatch({type: 'LOGIN', payload: json})
+      setLoading(false)
     }
   };
 
