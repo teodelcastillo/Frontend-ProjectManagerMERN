@@ -1,9 +1,9 @@
 import React, { createContext, useReducer, ReactNode, Dispatch } from "react";
-import { Users } from "../data/models";
+import { NewUser } from "../data/models";
 
 // Define types for your state and action objects
 type AuthState = {
-  user: Users | null;
+  user: NewUser | null;
 };
 
 type AuthAction = {
