@@ -23,4 +23,11 @@ export interface Case {
     entityID: string;
     entityType: string;
   }
+
+  export interface Users {
+    _id: string;
+    username: string;
+    email: string;
+    password: string
+  }
   
