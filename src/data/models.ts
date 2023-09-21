@@ -23,11 +23,15 @@ export interface Case {
     entityID: string;
     entityType: string;
   }
-
-  export interface Users {
-    _id: string;
-    username: string;
-    email: string;
-    password: string
-  }
   
+// Base interface with common properties
+export interface NewUser {
+  username: string;
+  email: string;
+  password: string;
+}
+
+// Interface for existing users (with _id)
+export interface ExistingUser extends NewUser {
+  _id: string;
+}
