@@ -7,8 +7,6 @@ const useAuthContext = () => {
   if (!context) {
     throw Error('useAuthContext its ment to be used inside a  Auth context provider')
   }
-  
-  
     return (
     context
   )
