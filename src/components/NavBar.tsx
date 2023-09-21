@@ -1,7 +1,17 @@
 import ClientsSearch from "./ClientsSearch";
-import { HStack } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { Clients } from "../data/models";
 import FilterLabel from "./FilterLabel";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { useLogout } from "../hooks/useLogout";
 
 interface NavBarProps {
   selectedClient: Clients | null;
@@ -14,6 +24,12 @@ const NavBar = ({ selectedClient, onClientSelect, onSearch }: NavBarProps) => {
     onClientSelect(null);
   };
 
+  const { logout } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <HStack padding="10px">
       {" "}
@@ -22,6 +38,19 @@ const NavBar = ({ selectedClient, onClientSelect, onSearch }: NavBarProps) => {
         selectedClient={selectedClient}
         onClearFilter={handleClearFilter}
       />
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<HamburgerIcon />}
+          variant="outline"
+        />
+        <MenuList>
+          <MenuItem>
+            <Button onClick={handleLogout}>Log out</Button>
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </HStack>
   );
 };
