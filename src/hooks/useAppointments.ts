@@ -4,7 +4,7 @@ import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 import { Appointments } from "../data/models";
 
-const useAppointments = (entityType: string, entityId: string) => {
+const useAppointments = () => {
   const [appointments, setAppointments] = useState<Appointments[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const useAppointments = (entityType: string, entityId: string) => {
     setLoading(true);
     apiClient
       .get<Appointments[]>(
-        `/appointments?entityType=${entityType}&entityId=${entityId}`,
+        `/appointments?`,
         { signal: controller.signal }
       )
       .then((res) => {
@@ -29,7 +29,7 @@ const useAppointments = (entityType: string, entityId: string) => {
       });
 
     return () => controller.abort();
-  }, [entityType, entityId]);
+  }, []);
 
   return { appointments, error, isLoading };
 };
