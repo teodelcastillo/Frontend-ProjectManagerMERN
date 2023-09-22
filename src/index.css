@@ -2,3 +2,11 @@
   height: 33%;
 }
 
+.signup-form {
+  margin: 50px;
+  border: 1px;
+  border-style:groove;
+  border-color: #551A8B;
+  border-radius: 15px;
+  padding: 50px;
+}

@@ -1,50 +1,21 @@
-// App.tsx
-import { Grid, GridItem } from "@chakra-ui/react";
-import NavBar from "./components/NavBar";
-import CasesGrid from "./components/CasesGrid";
-import { useState } from "react";
-import { Clients } from "./data/models";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import HomePage from "./pages/HomePage";
+
+import MainDashboard from "./pages/MainDashboard";
 
 function App() {
-  // State for selected client and search text
-  const [selectedClient, setSelectedClient] = useState<Clients | null>(null);
-  const [searchText, setSearchText] = useState<string>("");
-
-  // Function to handle client selection
-  const handleClientSelection = (client: Clients) => {
-    setSelectedClient(client);
-  };
-
-  // Function to handle search text change
-  const handleSearchTextChange = (text: string) => {
-    setSearchText(text);
-  };
-
   return (
-    <>
-      <Grid
-        templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav nav" "main main"`,
-        }}
-        templateColumns={{
-          base: "1fr",
-          lg: "250px 1fr",
-        }}
-      >
-        <GridItem area="nav">
-          <NavBar
-            selectedClient={selectedClient}
-            onClientSelect={handleClientSelection}
-            onSearch={handleSearchTextChange}
-          />
-        </GridItem>
-
-        <GridItem area="main" padding={"15px"}>
-          <CasesGrid selectedClient={selectedClient} />
-        </GridItem>
-      </Grid>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/dashboard" element={<MainDashboard />} />
+      </Routes>
+    </Router>
   );
 }
 
