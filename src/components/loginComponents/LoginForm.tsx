@@ -17,14 +17,14 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({
     username: "",
-    password: "", // Remove the email field
+    password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await login(formData.username, formData.password);
+    const success = await login(formData.username, formData.password);
 
-    if (!error) {
+    if (success) {
       window.location.href = "/dashboard";
     }
   };
@@ -40,7 +40,7 @@ const LoginForm = () => {
   return (
     <>
       <HomeNavBar />
-      <form className="Login-form" onSubmit={handleSubmit}>
+      <form className="signup-form" onSubmit={handleSubmit}>
         {error && (
           <Alert status="error">
             <AlertIcon />
@@ -57,7 +57,7 @@ const LoginForm = () => {
             value={formData.username}
           />
         </FormControl>
-        <FormControl isRequired>
+        <FormControl isRequired marginBottom={"10px"}>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"

@@ -1,17 +1,16 @@
 import { useState } from "react";
 import useAuthContext from "./useAuthContext";
+import apiClient from "../services/api-client"; // Import your HTTP client
 
 type SignupError = {
   error: string;
-  // You can define more specific error properties here if needed
 };
 
 type SignupResponse = {
   user: {
     username: string;
     email: string;
-    jwt: string
-
+    jwt: string;
   };
 };
 
@@ -24,30 +23,27 @@ export const useSignup = () => {
     setLoading(true);
     setError(null);
 
-    const response = await fetch('http://localhost:3000/api/users/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, email, password })
-    });
+    try {
+      const response = await apiClient.post("/users/signup", {
+        email,
+        username,
+        password,
+      });
 
-    if (!response.ok) {
-      const errorData: SignupError = await response.json();
+      if (!response.data) {
+        const errorData: SignupError = response.data;
+        setLoading(false);
+        setError(errorData);
+      } else {
+        const json: SignupResponse = response.data;
+        localStorage.setItem("user", JSON.stringify(json.user));
+        dispatch({ type: "LOGIN", payload: json.user });
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error:", error);
       setLoading(false);
-      setError(errorData);
-
-    } else {
-      const json: SignupResponse = await response.json();
-      localStorage.setItem('user', JSON.stringify(json.user));
-      dispatch({ type: 'LOGIN', payload: json.user });
-      setLoading(false);
-
-      // Save the user to local storage
-      localStorage.setItem('user', JSON.stringify(json))
-      
-      // update the auth context
-
-      dispatch({type: 'LOGIN', payload: json})
-      setLoading(false)
+      setError({ error: "An error occurred while signing up." });
     }
   };
 

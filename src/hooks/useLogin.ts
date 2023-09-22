@@ -1,14 +1,17 @@
 // Updated useLogin hook
 import { useState } from "react";
 import useAuthContext from "./useAuthContext";
+import apiClient from "../services/api-client"; // Import your HTTP client
 
 type LoginError = {
   error: string;
 };
 
 type LoginResponse = {
+  // Modify this type according to the actual response structure
   username: string;
   token: string;
+  // Add other properties if needed
 };
 
 export const useLogin = () => {
@@ -19,32 +22,32 @@ export const useLogin = () => {
   const login = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
-  
+    let success = false;
+
     try {
-      const response = await fetch("http://localhost:3000/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      const response = await apiClient.post("/users/login", {
+        username,
+        password,
       });
-  
-      if (!response.ok) {
-        const errorData: LoginError = await response.json();
+
+      if (!response.data || !response.data.token) {
+        const errorData: LoginError = response.data;
         setLoading(false);
         setError(errorData);
-        return { success: false };
       } else {
-        const json: LoginResponse = await response.json();
+        const json: LoginResponse = response.data;
         localStorage.setItem("user", JSON.stringify(json));
         dispatch({ type: "LOGIN", payload: json });
         setLoading(false);
-        return { success: true, user: json };
+        success = true;
       }
     } catch (error) {
       console.error("Error:", error);
       setLoading(false);
       setError({ error: "An error occurred while logging in." });
-      return { success: false };
     }
+
+    return success;
   };
 
   return { login, isLoading, error };
