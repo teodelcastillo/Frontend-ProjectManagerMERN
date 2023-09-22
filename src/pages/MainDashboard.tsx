@@ -1,10 +1,10 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import CasesGrid from "../components/CasesGrid";
 import NavBar from "../components/NavBar";
 import { Clients } from "../data/models";
 
-const MainPage = () => {
+const MainDashboard = () => {
   // State for selected client and search text
   const [selectedClient, setSelectedClient] = useState<Clients | null>(null);
   const [searchText, setSearchText] = useState<string>("");
@@ -47,4 +47,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default MainDashboard;

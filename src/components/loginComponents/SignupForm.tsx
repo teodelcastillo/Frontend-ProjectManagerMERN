@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -6,10 +7,14 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  AbsoluteCenter,
+  AlertDescription,
 } from "@chakra-ui/react";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { useSignup } from "../../hooks/useSignup";
+
 import HomeNavBar from "../homePageComponents/HomeNavBar";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
   const { signup, isLoading, error } = useSignup();
@@ -28,11 +33,21 @@ const SignupForm = () => {
     password: "",
   });
 
+  // Track the success state
+  const [isSuccess, setIsSuccess] = useState(false);
+
   // Define a function to handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Call the signup function from the useSignup hook with form data
-    await signup(formData.email, formData.username, formData.password);
+    try {
+      // Call the signup function from the useSignup hook with form data
+      await signup(formData.email, formData.username, formData.password);
+      // If signup is successful, set isSuccess to true
+      setIsSuccess(true);
+    } catch (error) {
+      // Handle any errors here
+      setIsSuccess(false);
+    }
   };
 
   // Define a function to update form data when input values change
@@ -54,11 +69,36 @@ const SignupForm = () => {
             <AlertTitle>{error.error}</AlertTitle>
           </Alert>
         )}
+        {isSuccess && !error && (
+          <AbsoluteCenter zIndex={999} axis="both">
+            <Alert
+              status="success"
+              bg={"#c6f6d5"}
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="center"
+              height="300px"
+              width={"300px"}
+              borderRadius={"100%"}
+            >
+              <AlertIcon boxSize="40px" mr={0} />
+              <AlertTitle mt={4} mb={1} fontSize="lg">
+                Application submitted!
+              </AlertTitle>
+              <AlertDescription maxWidth="sm">
+                Do you want to <Link to="/login">log in</Link>
+                ?
+                <br />
+              </AlertDescription>
+            </Alert>
+          </AbsoluteCenter>
+        )}
         <FormControl isRequired>
           <FormLabel>Enter your email</FormLabel>
           <Input
             type="email"
-            name="email" // Add name attribute to associate with form data
+            name="email"
             placeholder="email"
             onChange={handleInputChange}
             value={formData.email}
@@ -67,8 +107,8 @@ const SignupForm = () => {
         <FormControl isRequired>
           <FormLabel>Create username</FormLabel>
           <Input
-            type="text" // Use "text" for username input
-            name="username" // Add name attribute to associate with form data
+            type="text"
+            name="username"
             placeholder="username"
             onChange={handleInputChange}
             value={formData.username}
@@ -78,12 +118,13 @@ const SignupForm = () => {
           <FormLabel>Create password</FormLabel>
           <Input
             type="password"
-            name="password" // Add name attribute to associate with form data
+            name="password"
             placeholder="password"
             onChange={handleInputChange}
             value={formData.password}
           />
         </FormControl>
+
         <Button type="submit" colorScheme="blue" isLoading={isLoading}>
           Sign Up
         </Button>
