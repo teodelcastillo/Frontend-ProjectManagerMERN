@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Case } from "../data/models";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import AppointmentCaseAlert from "./AppointmentCaseAlert";
 
 interface Props {
   caseData: Case;
@@ -49,7 +50,7 @@ const CaseCard = ({ caseData }: Props) => {
               Documentacion del caso <ExternalLinkIcon mx="2px" />
             </Link>
           </Box>
-          <Box>APPOINTMENTS</Box>
+          <AppointmentCaseAlert caseId={caseData._id} />
         </Stack>
       </CardBody>
     </Card>

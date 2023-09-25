@@ -63,3 +63,27 @@ export const deleteAppointmentById = async (appointmentId: string): Promise<bool
       return false;
     }
 }
+
+export const getAppointmentByDate = async (appointmentDate: string): Promise<Appointments | null> => {
+
+    try {
+      const response = await axiosInstance.get(`/appointments/${appointmentDate}`);
+      return response.data as Appointments;
+    } catch (error) {
+      console.error("Error fetching appointment by date:", error);
+      return null;
+    }
+
+}
+
+
+
+export const getAppointmentsByCaseId = async (caseId: string): Promise<Appointments[] | null> => {
+  try {
+    const response = await axiosInstance.get(`/cases/${caseId}/appointments`);
+    return response.data as Appointments[];
+  } catch (error) {
+    console.error("Error fetching appointments by case ID:", error);
+    return null;
+  }
+}

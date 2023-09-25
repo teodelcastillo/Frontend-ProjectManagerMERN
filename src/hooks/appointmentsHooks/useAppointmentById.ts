@@ -7,7 +7,10 @@ import {
   getAppointmentById,
   updateAppointmentById,
   deleteAppointmentById,
+  getAppointmentsByCaseId
 } from "../../services/appointmentsService";
+import { Appointments } from "../../data/models"; // Import the appointment model or type
+
 
 export const useGetAppointmentById = () => {
   const fetchAppointmentById = useCallback(
@@ -58,4 +61,28 @@ export const useDeleteAppointmentById = () => {
   );
 
   return { deleteAppointment };
+};
+
+
+export const useGetAppointmentByCaseId = () => {
+
+}
+
+// ./src/hooks/useGetAppointmentsByCaseId.ts
+
+export const useGetAppointmentsByCaseId = () => {
+  const fetchAppointmentsByCaseId = useCallback(
+    async (caseId: string): Promise<Appointments[] | null> => {
+      try {
+        const appointments = await getAppointmentsByCaseId(caseId);
+        return appointments;
+      } catch (error) {
+        console.error("Error fetching appointments by case ID:", error);
+        return null;
+      }
+    },
+    []
+  );
+
+  return { fetchAppointmentsByCaseId };
 };
