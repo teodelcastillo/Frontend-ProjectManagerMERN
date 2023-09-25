@@ -3,7 +3,7 @@
 import axiosInstance from "./axios";
 import { Appointments } from "../data/models";
 
-interface AppointmentResponse {
+export interface AppointmentResponse {
   appointmentResponse: Appointments;
 }
 
