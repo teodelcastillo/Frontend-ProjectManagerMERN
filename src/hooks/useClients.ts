@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import apiClient from "../services/api-client";
+import axiosInstance from "../services/axios"; // Updated import
 import { CanceledError } from "axios";
 import { Clients } from "../data/models";
 
@@ -12,7 +12,7 @@ const useClients = () => {
     const controller = new AbortController();
 
     setLoading(true);
-    apiClient
+    axiosInstance // Use axiosInstance for the request
       .get<Clients[]>("/clients", { signal: controller.signal })
       .then((res) => {
         setClients(res.data);
