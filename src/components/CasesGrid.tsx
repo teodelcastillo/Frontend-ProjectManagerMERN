@@ -5,6 +5,7 @@ import {
   Center,
   Tag,
   TagCloseButton,
+  Button, // Import Button component from Chakra UI
 } from "@chakra-ui/react";
 import SearchInput from "./SearchInput";
 import CaseCard from "./CaseCard";
@@ -17,22 +18,14 @@ function CaseGrid() {
   const [casesToShow, setCasesToShow] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [limit, setLimit] = useState(8); // Initial limit
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        // Call fetchAllCases with empty parameters to get all cases
-        const cases = await fetchAllCases(
-          "", // caseClientID
-          "", // caseName
-          "", // caseID
-          "", // caseClient
-          "", // caseNumber
-          "", // caseJury
-          "" // caseLink
-        );
-        setCasesToShow(cases);
+        const cases = await fetchAllCases("", "", "", "", "", "", "");
+        setCasesToShow(cases); // Set all cases initially
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching cases:", error);
@@ -44,13 +37,16 @@ function CaseGrid() {
   }, [fetchAllCases]);
 
   const handleCaseSearch = () => {
-    // Implement your search functionality here
     setSearchText(searchText);
   };
 
   const handleTagClose = () => {
-    // Implement closing the search tag here
     setSearchText("");
+  };
+
+  const loadMoreCases = () => {
+    // Increase the limit by 6 to load more cases
+    setLimit(limit + 6);
   };
 
   return (
@@ -70,11 +66,16 @@ function CaseGrid() {
       )}
 
       <SimpleGrid columns={{ sm: 1, md: 2, xl: 4 }} padding="10px" spacing={10}>
-        {casesToShow.map((caseItem: Case) => (
+        {casesToShow.slice(0, limit).map((caseItem: Case) => (
           <CaseCard key={caseItem._id} caseData={caseItem} />
         ))}
-        {/* Implement the load more button */}
       </SimpleGrid>
+
+      {limit < casesToShow.length && (
+        <Center mt="4">
+          <Button onClick={loadMoreCases}>Load More</Button>
+        </Center>
+      )}
     </div>
   );
 }
