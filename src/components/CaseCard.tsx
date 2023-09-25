@@ -12,8 +12,6 @@ import {
 import { Case } from "../data/models";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-import AppointmentsComponent from "./AppointmentsComponent";
-
 interface Props {
   caseData: Case;
 }
@@ -51,9 +49,7 @@ const CaseCard = ({ caseData }: Props) => {
               Documentacion del caso <ExternalLinkIcon mx="2px" />
             </Link>
           </Box>
-          <Box>
-            <AppointmentsComponent />
-          </Box>
+          <Box>APPOINTMENTS</Box>
         </Stack>
       </CardBody>
     </Card>

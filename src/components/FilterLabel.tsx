@@ -1,5 +1,5 @@
 // FilterLabel.tsx
-import React from "react";
+
 import { Tag, TagCloseButton } from "@chakra-ui/react";
 import { Clients } from "../data/models";
 
