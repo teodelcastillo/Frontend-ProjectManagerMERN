@@ -114,7 +114,7 @@ const SignupForm = () => {
             value={formData.username}
           />
         </FormControl>
-        <FormControl isRequired>
+        <FormControl isRequired marginBottom={"10px"}>
           <FormLabel>Create password</FormLabel>
           <Input
             type="password"

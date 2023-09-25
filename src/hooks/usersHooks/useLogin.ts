@@ -1,6 +1,6 @@
+// Updated useLogin hook
 import { useState } from "react";
 import useAuthContext from "../useAuthContext";
-import axiosInstance from "../../services/axios"; // Import your Axios instance
 
 type LoginError = {
   error: string;
@@ -19,26 +19,21 @@ export const useLogin = () => {
   const login = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
-
+  
     try {
-      const response = await axiosInstance.post("/users/login", {
-        username,
-        password,
+      const response = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       });
-
-      if (!response) {
-        setLoading(false);
-        setError({ error: "An error occurred while logging in." });
-        return { success: false };
-      }
-
-      if (!response.data || !response.data.token) {
-        const errorData: LoginError = response.data;
+  
+      if (!response.ok) {
+        const errorData: LoginError = await response.json();
         setLoading(false);
         setError(errorData);
         return { success: false };
       } else {
-        const json: LoginResponse = response.data;
+        const json: LoginResponse = await response.json();
         localStorage.setItem("user", JSON.stringify(json));
         dispatch({ type: "LOGIN", payload: json });
         setLoading(false);

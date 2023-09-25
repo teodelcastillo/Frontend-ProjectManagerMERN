@@ -1,6 +1,6 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import logocompleto from "../../../public/assets/logocompleto.png";
+import logocompleto from "../../assets/logocompleto.png";
 
 const HomeNavBar = () => {
   return (
