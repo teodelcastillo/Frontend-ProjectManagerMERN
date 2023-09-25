@@ -11,7 +11,7 @@ import {
 import { Clients } from "../data/models";
 import FilterLabel from "./FilterLabel";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { useLogout } from "../hooks/useLogout";
+import { useLogout } from "../hooks/usersHooks/useLogout";
 
 interface NavBarProps {
   selectedClient: Clients | null;

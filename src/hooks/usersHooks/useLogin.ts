@@ -1,6 +1,6 @@
 import { useState } from "react";
-import useAuthContext from "./useAuthContext";
-import axiosInstance from "../services/axios"; // Import your Axios instance
+import useAuthContext from "../useAuthContext";
+import axiosInstance from "../../services/axios"; // Import your Axios instance
 
 type LoginError = {
   error: string;

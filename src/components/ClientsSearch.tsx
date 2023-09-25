@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Button,
   Drawer,
@@ -15,20 +15,21 @@ import {
 } from "@chakra-ui/react";
 import SearchInput from "./SearchInput";
 import { Clients } from "../data/models";
-import useClients from "../hooks/useClients";
+import { useGetAllClients } from "../hooks/clientHooks/useGetAllClients"; // Import your hook
 
 interface Props {
   onClientSelect: (client: Clients) => void;
-  maxClientsToShow: number; // Prop to control the max number of clients to display
+  maxClientsToShow: number;
 }
 
 const ClientsSearch = ({ onClientSelect, maxClientsToShow }: Props) => {
+  const { fetchAllClients } = useGetAllClients();
+  const [clients, setClients] = useState<Clients[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
   const [searchText, setSearchText] = useState("");
-
-  const { clients, isLoading } = useClients();
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   const filteredClients = clients.filter((client) =>
     client.clientName.toLowerCase().includes(searchText.toLowerCase())
@@ -43,6 +44,22 @@ const ClientsSearch = ({ onClientSelect, maxClientsToShow }: Props) => {
     onClientSelect(client);
     onClose();
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedClients = await fetchAllClients();
+        setClients(fetchedClients);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [fetchAllClients]);
 
   useEffect(() => {
     if (resetList) {
@@ -86,7 +103,7 @@ const ClientsSearch = ({ onClientSelect, maxClientsToShow }: Props) => {
 
             <DrawerBody>
               {isLoading ? (
-                <p>Loading...</p> // Add loading state if needed
+                <p>Loading...</p>
               ) : (
                 <List spacing={2}>
                   {clientsToRender.map((client) => (

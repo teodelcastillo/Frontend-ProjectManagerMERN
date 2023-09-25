@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuthContext from "./useAuthContext";
+import useAuthContext from "../useAuthContext";
 
 type SignupError = {
   error: string;

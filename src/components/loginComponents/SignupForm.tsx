@@ -11,7 +11,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { FormEvent } from "react";
-import { useSignup } from "../../hooks/useSignup";
+import { useSignup } from "../../hooks/usersHooks/useSignup";
 
 import HomeNavBar from "../homePageComponents/HomeNavBar";
 import { Link } from "react-router-dom";
