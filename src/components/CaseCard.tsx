@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Case } from "../data/models";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import AppointmentsAlert from "./AppointmentsAlert";
+
 import AppointmentsComponent from "./AppointmentsComponent";
 
 interface Props {
