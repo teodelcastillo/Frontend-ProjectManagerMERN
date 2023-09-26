@@ -25,8 +25,8 @@ const CaseCard = ({ caseData }: Props) => {
   const { caseName, caseID, caseJury, caseLink, caseClient } = caseData;
 
   return (
-    <Card size="lg" variant="outline">
-      <CardHeader className="case-card-header">
+    <Card size="lg" variant="outline" h={570}>
+      <CardHeader className="case-card-header" h={110}>
         <Heading fontSize="xl">{caseName}</Heading>
       </CardHeader>
       <CardBody>

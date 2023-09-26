@@ -17,7 +17,7 @@ export interface Case {
 
   export interface Appointments {
     _id: string; 
-    type: string;
+    title: string;
     date: Date;
     description: string;
     entityID: string;
