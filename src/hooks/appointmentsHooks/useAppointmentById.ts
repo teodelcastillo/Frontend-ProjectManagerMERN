@@ -9,7 +9,7 @@ import {
   deleteAppointmentById,
   getAppointmentsByCaseId
 } from "../../services/appointmentsService";
-import { Appointments } from "../../data/models"; // Import the appointment model or type
+import { Appointment } from "../../data/models"; // Import the appointment model or type
 
 
 export const useGetAppointmentById = () => {
@@ -72,7 +72,7 @@ export const useGetAppointmentByCaseId = () => {
 
 export const useGetAppointmentsByCaseId = () => {
   const fetchAppointmentsByCaseId = useCallback(
-    async (caseId: string): Promise<Appointments[] | null> => {
+    async (caseId: string): Promise<Appointment[] | null> => {
       try {
         const appointments = await getAppointmentsByCaseId(caseId);
         return appointments;

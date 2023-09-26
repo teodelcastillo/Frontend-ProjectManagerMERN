@@ -5,6 +5,7 @@ import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
 
 import MainDashboard from "./pages/MainDashboard";
+import CalendarPage from "./pages/CalendarPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/dashboard" element={<MainDashboard />} />
+        <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
     </Router>
   );

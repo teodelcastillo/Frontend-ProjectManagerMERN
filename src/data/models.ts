@@ -15,14 +15,13 @@ export interface Case {
     clientName: string
   }
 
-  export interface Appointments {
-    _id: string; 
-    title: string;
+  export interface Appointment {
+    type: string;
     date: Date;
     description: string;
-    entityID: string;
-    entityType: string;
+    relatedTo: string[]; // Assuming relatedTo is an array of strings
   }
+  
   
 // Base interface with common properties
 export interface NewUser {
