@@ -23,6 +23,17 @@ const AppointmentCaseAlert = ({ caseId }: Props) => {
     }
   }, [caseId, fetchAppointmentsByCaseId]);
 
+  // Function to calculate the difference in days between two dates
+  const calculateDaysDifference = (date: Date) => {
+    const currentDate = new Date();
+    const appointmentDate = new Date(date);
+
+    const timeDifference = appointmentDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+    return daysDifference;
+  };
+
   return (
     <>
       <Box>
@@ -33,12 +44,31 @@ const AppointmentCaseAlert = ({ caseId }: Props) => {
           </Button>
         </HStack>
         <HStack>
-          {appointments.map((appointmentItem) => (
-            <Alert key={appointmentItem._id} justifyContent={"space-between"}>
-              <Text>{appointmentItem.title}</Text>
-              <CaseAppointmentActionsMenu appointment={appointmentItem} />
-            </Alert>
-          ))}
+          {appointments.map((appointmentItem) => {
+            const daysDifference = calculateDaysDifference(
+              appointmentItem.date
+            );
+            let colorScheme = "green";
+
+            if (daysDifference < 0) {
+              // The appointment is in the past and not done
+              colorScheme = "red";
+            } else if (daysDifference === 2 || daysDifference === 0) {
+              // The appointment is today or in the next two days and is not done
+              colorScheme = "yellow";
+            }
+
+            return (
+              <Alert
+                key={appointmentItem._id}
+                justifyContent={"space-between"}
+                colorScheme={colorScheme}
+              >
+                <Text>{appointmentItem.title}</Text>
+                <CaseAppointmentActionsMenu appointment={appointmentItem} />
+              </Alert>
+            );
+          })}
         </HStack>
       </Box>
     </>
