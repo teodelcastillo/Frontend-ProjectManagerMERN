@@ -9,7 +9,7 @@ function useCasesWithAppointments() {
     useEffect(() => {
         const fetchData = async () => {
             const casesWithAppointments = await getCasesWithAppointments();
-            setCases(casesWithAppointments); // Set cases directly without sorting
+            setCases(casesWithAppointments); 
         };
 
         fetchData();
