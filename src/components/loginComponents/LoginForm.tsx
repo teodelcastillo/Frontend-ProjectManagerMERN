@@ -22,11 +22,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const success = await login(formData.username, formData.password);
-
-    if (success) {
-      window.location.href = "/dashboard";
-    }
+    await login(formData.username, formData.password);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
