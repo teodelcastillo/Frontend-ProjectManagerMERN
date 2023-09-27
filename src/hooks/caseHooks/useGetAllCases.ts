@@ -11,7 +11,8 @@ export const useGetAllCases = () => {
       caseClient: string,
       caseNumber: string,
       caseJury: string,
-      caseLink: string
+      caseLink: string,
+      appointments: []
     ) => {
       try {
         const cases = await getAllCases(
@@ -21,7 +22,8 @@ export const useGetAllCases = () => {
           caseClient,
           caseNumber,
           caseJury,
-          caseLink
+          caseLink,
+          appointments
         );
         return cases;
       } catch (error) {

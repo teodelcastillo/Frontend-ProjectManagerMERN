@@ -9,13 +9,13 @@ import {
 } from "@chakra-ui/react";
 import SearchInput from "./SearchInput";
 import CaseCard from "./CaseCard";
-import { useGetAllCases } from "../hooks/caseHooks/useGetAllCases";
 import { Case } from "../data/models";
+import useGetCaseWithAppointments from "../hooks/caseHooks/useGetCaseWithAppointments";
 
 function CaseGrid() {
-  const { fetchAllCases } = useGetAllCases();
+  const casesWithAppointments = useGetCaseWithAppointments();
 
-  const [casesToShow, setCasesToShow] = useState([]);
+  const [casesToShow, setCasesToShow] = useState<Case[]>([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [limit, setLimit] = useState(8); // Initial limit
@@ -24,7 +24,7 @@ function CaseGrid() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const cases = await fetchAllCases("", "", "", "", "", "", "");
+        const cases = await casesWithAppointments;
         setCasesToShow(cases); // Set all cases initially
         setIsLoading(false);
       } catch (error) {
@@ -34,7 +34,7 @@ function CaseGrid() {
     };
 
     fetchData();
-  }, [fetchAllCases]);
+  }, [casesWithAppointments]);
 
   const handleCaseSearch = () => {
     setSearchText(searchText);

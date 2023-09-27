@@ -38,7 +38,8 @@ export const getAllCases = async (
     caseClient: string,
     caseNumber: string,
     caseJury: string,
-    caseLink: string
+    caseLink: string,
+    appointments: []
 ): Promise<Case[]> => {
     try {
         const response = await axiosInstance.get("/cases", {
@@ -50,6 +51,7 @@ export const getAllCases = async (
                 caseNumber,
                 caseJury,
                 caseLink,
+                appointments
             },
         });
         return response.data as Case[];
@@ -105,3 +107,13 @@ export const deleteCaseById = async (caseId: string): Promise<boolean> => {
     return false;
   }
 }
+
+export const getCasesWithAppointments = async (): Promise<Case[]> => {
+  try {
+    const response = await axiosInstance.get("/cases/appointments");
+    return response.data as Case[];
+  } catch (error) {
+    console.error("Error fetching cases:", error);
+    return [];
+  }
+};

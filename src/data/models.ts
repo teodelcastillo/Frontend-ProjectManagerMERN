@@ -7,6 +7,7 @@ export interface Case {
     caseJury: string
     caseLink: string
     caseClientID: string
+    appointments: Appointment[];
   
   }
   
