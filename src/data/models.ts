@@ -16,7 +16,8 @@ export interface Case {
   }
 
   export interface Appointment {
-    type: string;
+    _id: string;
+    title: string;
     date: Date;
     description: string;
     relatedTo: string[]; // Assuming relatedTo is an array of strings

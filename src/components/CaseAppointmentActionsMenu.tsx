@@ -1,12 +1,16 @@
-import { CheckIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { CheckIcon } from "@chakra-ui/icons";
 import { HStack, Button } from "@chakra-ui/react";
+import AppintmentModalInformation from "./AppintmentModalInformation";
+import { Appointment } from "../data/models";
 
-const CaseAppointmentActionsMenu = () => {
+interface Props {
+  appointment: Appointment;
+}
+
+const CaseAppointmentActionsMenu = ({ appointment }: Props) => {
   return (
     <HStack>
-      <Button size={"sm"}>
-        <InfoOutlineIcon />
-      </Button>
+      <AppintmentModalInformation appointment={appointment} />
       <Button size={"sm"}>
         <CheckIcon />
       </Button>

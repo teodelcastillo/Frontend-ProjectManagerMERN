@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import { useGetAppointmentsByCaseId } from "../hooks/appointmentsHooks/useAppointmentById";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
 import { AddIcon } from "@chakra-ui/icons";
-export type Appointments = {
-  _id: string;
-  title: string;
-  // other properties
-};
+import { Appointment } from "../data/models";
 
 interface Props {
   caseId: string;
@@ -15,7 +11,7 @@ interface Props {
 
 const AppointmentCaseAlert = ({ caseId }: Props) => {
   const { fetchAppointmentsByCaseId } = useGetAppointmentsByCaseId();
-  const [appointments, setAppointments] = useState<Appointments[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   useEffect(() => {
     if (caseId) {
@@ -37,10 +33,10 @@ const AppointmentCaseAlert = ({ caseId }: Props) => {
           </Button>
         </HStack>
         <HStack>
-          {appointments.map((appointment: Appointments) => (
-            <Alert key={appointment._id} justifyContent={"space-between"}>
-              <Text>{appointment.title}</Text>
-              <CaseAppointmentActionsMenu />
+          {appointments.map((appointmentItem) => (
+            <Alert key={appointmentItem._id} justifyContent={"space-between"}>
+              <Text>{appointmentItem.title}</Text>
+              <CaseAppointmentActionsMenu appointment={appointmentItem} />
             </Alert>
           ))}
         </HStack>
