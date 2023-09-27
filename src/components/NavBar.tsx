@@ -46,9 +46,7 @@ const NavBar = ({ selectedClient, onClientSelect, onSearch }: NavBarProps) => {
           variant="outline"
         />
         <MenuList>
-          <MenuItem>
-            <Button onClick={handleLogout}>Log out</Button>
-          </MenuItem>
+          <MenuItem onClick={handleLogout}>Log out</MenuItem>
         </MenuList>
       </Menu>
     </HStack>
