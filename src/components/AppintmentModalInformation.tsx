@@ -23,6 +23,8 @@ const AppintmentModalInformation = ({ appointment }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
+  const formattedDate = new Date(appointment.date).toLocaleString();
+
   return (
     <>
       <Button size={"sm"} onClick={onOpen}>
@@ -37,7 +39,7 @@ const AppintmentModalInformation = ({ appointment }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{appointment.title}</ModalHeader>
-          <ModalHeader>{String(appointment.date)}</ModalHeader>
+          <ModalHeader>{formattedDate}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>{appointment.description}</ModalBody>
 
