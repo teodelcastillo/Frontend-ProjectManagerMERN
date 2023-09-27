@@ -1,5 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom"; // Import useHistory from react-router-dom
+import { useNavigate } from "react-router-dom";
 
 const HomeModules = () => {
   const navigate = useNavigate();

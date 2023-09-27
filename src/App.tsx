@@ -4,7 +4,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import HomePage from "./pages/HomePage";
@@ -14,26 +13,26 @@ import useAuthContext from "./hooks/useAuthContext";
 
 function App() {
   const { state } = useAuthContext();
-  const { user } = state;
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={user ? <LoginPage /> : <Navigate to="/dashboard" />}
+          element={state.user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
           path="/signup"
-          element={user ? <SignupPage /> : <Navigate to="/dashboard" />}
+          element={state.user ? <Navigate to="/" /> : <SignupPage />}
         />
         <Route
           path="/dashboard"
-          element={user ? <MainDashboard /> : <Navigate to="/login" />}
+          element={state.user ? <MainDashboard /> : <Navigate to="/login" />}
         />
         <Route
           path="/calendar"
-          element={user ? <CalendarPage /> : <Navigate to="/login" />}
+          element={state.user ? <CalendarPage /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
