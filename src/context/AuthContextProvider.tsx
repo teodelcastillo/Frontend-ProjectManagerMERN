@@ -10,16 +10,22 @@ import { NewUser } from "../data/models";
 // Define types for your state and action objects
 type AuthState = {
   user: NewUser | null;
+  isLoading: boolean;
+  error: string | null;
 };
 
-type AuthAction = {
-  type: string;
-  payload?: any; // Replace 'any' with the appropriate payload type if needed
-};
+type AuthAction =
+  | { type: "LOGIN"; payload: NewUser }
+  | { type: "LOGOUT" }
+  | { type: "SET_USER"; payload: NewUser }
+  | { type: "SET_LOADING"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string };
 
 // Create the initial state for your reducer
 const initialAuthState: AuthState = {
   user: null,
+  isLoading: false,
+  error: null,
 };
 
 // Create your context with initial state
@@ -37,9 +43,15 @@ export const AuthContext = createContext<AuthContextType>({
 const authReducer = (state: AuthState, action: AuthAction) => {
   switch (action.type) {
     case "LOGIN":
-      return { user: action.payload };
+      return { ...state, user: action.payload, isLoading: false };
     case "LOGOUT":
-      return { user: null };
+      return { ...state, user: null };
+    case "SET_USER":
+      return { ...state, user: action.payload };
+    case "SET_LOADING":
+      return { ...state, isLoading: action.payload };
+    case "SET_ERROR":
+      return { ...state, error: action.payload, isLoading: false };
     default:
       return state;
   }
