@@ -26,13 +26,13 @@ const CaseCard = ({ caseData }: Props) => {
     caseData;
 
   return (
-    <Card size="lg" variant="outline" h={570}>
-      <CardHeader className="case-card-header" h={110}>
+    <Card size="lg" variant="outline" h={"600px"}>
+      <CardHeader className="case-card-header" h={"90px"}>
         <Heading fontSize="xl">{caseName}</Heading>
       </CardHeader>
       <CardBody>
-        <Stack divider={<StackDivider />} spacing="2">
-          <Box>
+        <Stack divider={<StackDivider />} spacing="3">
+          <Box h={"135px"}>
             <Heading size="xs" textTransform="uppercase">
               Informacion general:
             </Heading>

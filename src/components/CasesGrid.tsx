@@ -88,7 +88,7 @@ function CaseGrid() {
   };
 
   return (
-    <div>
+    <div className="grid-container">
       <SearchInput onSearch={handleCaseSearch} placeholder="Search Cases..." />
       {searchText !== "" && (
         <Tag fontSize="0.8rem">
