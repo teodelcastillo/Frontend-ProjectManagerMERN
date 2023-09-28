@@ -1,6 +1,6 @@
-import { Alert, Box, Button, HStack, Heading, Text } from "@chakra-ui/react";
+import { Alert, Box, HStack, Heading, Text } from "@chakra-ui/react";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
-import { AddIcon } from "@chakra-ui/icons";
+
 import { Appointment } from "../data/models";
 
 interface Props {
@@ -56,6 +56,9 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
         key={`alert-${appointmentItem._id}`} // Assign a unique key
         justifyContent={"space-between"}
         colorScheme={colorScheme}
+        borderRadius={"7px"}
+        p={"12px"}
+        m={"10px 0"}
       >
         <Box>
           <Text as={"b"}>{appointmentItem.title}</Text>
@@ -69,11 +72,8 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
   return (
     <>
       <Box>
-        <HStack justify={"space-between"} h={"24px"} marginBottom={"8px"}>
+        <HStack h={"24px"}>
           <Heading size="sm">Vencimientos</Heading>
-          <Button colorScheme="teal" size="xs" borderRadius={"5px"}>
-            <AddIcon />
-          </Button>
         </HStack>
         <HStack>{appointmentElements}</HStack>
       </Box>
