@@ -8,7 +8,7 @@ interface Props {
 }
 
 // Function to format a date as a string in "DD/MM HH:MM" format
-const formatDate = (date: Date | undefined) => {
+const formatDateTime = (date: Date | undefined) => {
   if (date && !isNaN(date.getTime())) {
     const options: Intl.DateTimeFormatOptions = {
       day: "2-digit",
@@ -34,49 +34,48 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
     return daysDifference;
   };
 
+  const appointmentElements = appointments.map((appointmentItem) => {
+    const daysDifference = calculateDaysDifference(
+      new Date(appointmentItem.deadlineDate)
+    );
+
+    let colorScheme = "green";
+
+    if (daysDifference < 0) {
+      colorScheme = "red";
+    } else if (daysDifference <= 3) {
+      colorScheme = "yellow";
+    }
+
+    const formattedDate = formatDateTime(
+      new Date(appointmentItem.deadlineDate)
+    );
+
+    return (
+      <Alert
+        key={`alert-${appointmentItem._id}`} // Assign a unique key
+        justifyContent={"space-between"}
+        colorScheme={colorScheme}
+      >
+        <Box>
+          <Text as={"b"}>{appointmentItem.title}</Text>
+          <Text>{formattedDate}</Text>
+        </Box>
+        <CaseAppointmentActionsMenu appointment={appointmentItem} />
+      </Alert>
+    );
+  });
+
   return (
     <>
       <Box>
-        <HStack justify={"space-between"} h={"24px"} marginBottom={"15px"}>
-          <Heading size="sm">VENCIMIENTOS</Heading>
+        <HStack justify={"space-between"} h={"24px"} marginBottom={"8px"}>
+          <Heading size="sm">Vencimientos</Heading>
           <Button colorScheme="teal" size="xs" borderRadius={"5px"}>
             <AddIcon />
           </Button>
         </HStack>
-        <HStack>
-          {appointments.map((appointmentItem) => {
-            const daysDifference = calculateDaysDifference(
-              new Date(appointmentItem.deadlineDate) // Convert date string to Date
-            );
-            let colorScheme = "green";
-
-            if (daysDifference < 0) {
-              // The appointment is in the past and not done
-              colorScheme = "red";
-            } else if (daysDifference <= 3) {
-              // The appointment is today or in the next three days and is not done
-              colorScheme = "yellow";
-            }
-
-            return (
-              <Alert
-                key={appointmentItem._id}
-                justifyContent={"space-between"}
-                colorScheme={colorScheme}
-                h={"70px"}
-              >
-                <Box>
-                  <Text as={"b"}>{appointmentItem.title}</Text>
-
-                  <Text>
-                    {formatDate(new Date(appointmentItem.deadlineDate))}
-                  </Text>
-                </Box>
-                <CaseAppointmentActionsMenu appointment={appointmentItem} />
-              </Alert>
-            );
-          })}
-        </HStack>
+        <HStack>{appointmentElements}</HStack>
       </Box>
     </>
   );

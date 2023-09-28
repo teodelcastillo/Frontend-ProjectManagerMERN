@@ -1,6 +1,5 @@
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Input, InputGroup } from "@chakra-ui/react";
 import { useRef } from "react";
-import { BsSearch } from "react-icons/bs";
 
 interface Props {
   onSearch: (searchText: string) => void;
@@ -18,19 +17,18 @@ const SearchInput = ({ onSearch, placeholder, label }: Props) => {
         if (ref.current) {
           const searchText = ref.current.value;
           onSearch(searchText);
-          ref.current.value = ""; // Clear the input field
+          ref.current.value = "";
         }
       }}
     >
-      <InputGroup>
-        <InputLeftElement children={<BsSearch />} />
+      <InputGroup h={"80px"} alignItems={"center"}>
         <Input
           ref={ref}
           borderRadius={20}
           placeholder={placeholder}
           variant="filled"
-          aria-label={label || "Search"} // Use the label prop for accessibility
-        />
+          aria-label={label || "Search"}
+        ></Input>
       </InputGroup>
     </form>
   );

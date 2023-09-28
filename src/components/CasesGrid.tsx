@@ -45,7 +45,7 @@ function CaseGrid() {
   };
 
   const loadMoreCases = () => {
-    // Increase the limit by 6 to load more cases
+    // Increase the limit by 8 to load more cases
     setLimit(limit + 8);
   };
 
