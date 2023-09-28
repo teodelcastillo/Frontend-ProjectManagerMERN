@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import MainDashboard from "./pages/MainDashboard";
 import CalendarPage from "./pages/CalendarPage";
 import useAuthContext from "./hooks/useAuthContext";
+import Layout from "../src/components/Layout"; // Import the Layout component
 
 function App() {
   const { state } = useAuthContext();
@@ -17,22 +18,61 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
         <Route
           path="/login"
-          element={state.user ? <Navigate to="/" /> : <LoginPage />}
+          element={
+            state.user ? (
+              <Navigate to="/" />
+            ) : (
+              <Layout>
+                <LoginPage />
+              </Layout>
+            )
+          }
         />
         <Route
           path="/signup"
-          element={state.user ? <Navigate to="/" /> : <SignupPage />}
+          element={
+            state.user ? (
+              <Navigate to="/" />
+            ) : (
+              <Layout>
+                <SignupPage />
+              </Layout>
+            )
+          }
         />
         <Route
           path="/dashboard"
-          element={state.user ? <MainDashboard /> : <Navigate to="/login" />}
+          element={
+            state.user ? (
+              <Layout>
+                <MainDashboard />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/calendar"
-          element={state.user ? <CalendarPage /> : <Navigate to="/login" />}
+          element={
+            state.user ? (
+              <Layout>
+                <CalendarPage />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
       </Routes>
     </Router>

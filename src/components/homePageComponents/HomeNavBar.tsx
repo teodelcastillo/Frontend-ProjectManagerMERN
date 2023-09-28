@@ -9,7 +9,7 @@ const HomeNavBar = () => {
   const { state } = useAuthContext();
 
   return (
-    <HStack padding="10px 50px 10px 25px" justify={"space-between"}>
+    <HStack padding="0 10px" justify={"space-between"}>
       <Image
         h={"70px"}
         src={logocompleto}

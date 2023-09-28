@@ -4,7 +4,7 @@ import { useRef } from "react";
 interface Props {
   onSearch: (searchText: string) => void;
   placeholder?: string;
-  label?: string; // Add a label prop for accessibility
+  label?: string;
 }
 
 const SearchInput = ({ onSearch, placeholder, label }: Props) => {
