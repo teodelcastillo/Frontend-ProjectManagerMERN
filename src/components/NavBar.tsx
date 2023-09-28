@@ -1,6 +1,5 @@
 import ClientsSearch from "./ClientsSearch";
 import {
-  Button,
   HStack,
   IconButton,
   Menu,
@@ -32,7 +31,6 @@ const NavBar = ({ selectedClient, onClientSelect, onSearch }: NavBarProps) => {
 
   return (
     <HStack padding="10px">
-      {" "}
       <ClientsSearch onClientSelect={onClientSelect} onSearch={onSearch} />
       <FilterLabel
         selectedClient={selectedClient}

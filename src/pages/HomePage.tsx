@@ -18,7 +18,7 @@ const HomePage = () => {
         fontWeight="bold"
       >
         <GridItem pl="2" area={"header"}>
-          <HomeNavBar />;
+          <HomeNavBar />
         </GridItem>
         <GridItem pl="2" area={"main"} h={"70vh"}>
           <HomeModules />

@@ -85,7 +85,7 @@ const ClientsSearch = ({ onClientSelect, maxClientsToShow }: Props) => {
         </Button>
         <Drawer
           isOpen={isOpen}
-          placement="left"
+          placement="right"
           onClose={onClose}
           finalFocusRef={btnRef}
           size="sm"
