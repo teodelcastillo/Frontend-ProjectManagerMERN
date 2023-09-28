@@ -23,7 +23,7 @@ const AppintmentModalInformation = ({ appointment }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
-  const formattedDate = new Date(appointment.date).toLocaleString();
+  const formattedDate = new Date(appointment.deadlineDate).toLocaleString();
 
   return (
     <>

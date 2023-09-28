@@ -7,7 +7,8 @@ export interface Case {
     caseJury: string
     caseLink: string
     caseClientID: string
-    appointments: Appointment[];
+    appointments: Appointment[]
+    assignedUser: ExistingUser
   
   }
   
@@ -19,9 +20,9 @@ export interface Case {
   export interface Appointment {
     _id: string;
     title: string;
-    date: Date;
+    deadlineDate: string;
     description: string;
-    relatedTo: string[]; // Assuming relatedTo is an array of strings
+    relatedTo: string; // case id
   }
   
   
