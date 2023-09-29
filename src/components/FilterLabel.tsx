@@ -10,7 +10,7 @@ interface FilterLabelProps {
 
 const FilterLabel = ({ selectedClient, onClearFilter }: FilterLabelProps) => {
   if (!selectedClient) {
-    return null; // Early return when no client is selected
+    return null;
   }
 
   const handleClearFilter = () => {

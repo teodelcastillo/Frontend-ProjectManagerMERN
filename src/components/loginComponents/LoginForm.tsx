@@ -35,7 +35,6 @@ const LoginForm = () => {
 
   return (
     <>
-      <HomeNavBar />
       <form className="signup-form" onSubmit={handleSubmit}>
         {error && (
           <Alert status="error">

@@ -36,7 +36,7 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
 
   const appointmentElements = appointments.map((appointmentItem) => {
     const daysDifference = calculateDaysDifference(
-      new Date(appointmentItem.deadlineDate)
+      new Date(appointmentItem.date)
     );
 
     let colorScheme = "green";
@@ -47,9 +47,7 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
       colorScheme = "yellow";
     }
 
-    const formattedDate = formatDateTime(
-      new Date(appointmentItem.deadlineDate)
-    );
+    const formattedDate = formatDateTime(new Date(appointmentItem.date));
 
     return (
       <Alert

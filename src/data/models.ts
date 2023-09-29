@@ -20,7 +20,7 @@ export interface Case {
   export interface Appointment {
     _id: string;
     title: string;
-    deadlineDate: string;
+    date: string;
     description: string;
     relatedTo: string; // case id
   }

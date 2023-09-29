@@ -10,69 +10,31 @@ import HomePage from "./pages/HomePage";
 import MainDashboard from "./pages/MainDashboard";
 import CalendarPage from "./pages/CalendarPage";
 import useAuthContext from "./hooks/useAuthContext";
-import Layout from "../src/components/Layout"; // Import the Layout component
+import HomeNavBar from "./components/homePageComponents/HomeNavBar";
 
 function App() {
   const { state } = useAuthContext();
 
   return (
     <Router>
+      <HomeNavBar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <HomePage />
-            </Layout>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={
-            state.user ? (
-              <Navigate to="/" />
-            ) : (
-              <Layout>
-                <LoginPage />
-              </Layout>
-            )
-          }
+          element={state.user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route
           path="/signup"
-          element={
-            state.user ? (
-              <Navigate to="/" />
-            ) : (
-              <Layout>
-                <SignupPage />
-              </Layout>
-            )
-          }
+          element={state.user ? <Navigate to="/" /> : <SignupPage />}
         />
         <Route
           path="/dashboard"
-          element={
-            state.user ? (
-              <Layout>
-                <MainDashboard />
-              </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={state.user ? <MainDashboard /> : <Navigate to="/login" />}
         />
         <Route
           path="/calendar"
-          element={
-            state.user ? (
-              <Layout>
-                <CalendarPage />
-              </Layout>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={state.user ? <CalendarPage /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
