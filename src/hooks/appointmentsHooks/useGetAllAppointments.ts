@@ -1,4 +1,4 @@
-// ./src/hooks/useGetAllAppointments.ts
+
 import { useCallback } from "react";
 import { getAllAppointments } from "../../services/appointmentsService";
 

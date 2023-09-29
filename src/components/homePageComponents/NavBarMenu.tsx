@@ -1,13 +1,8 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Menu,
-  MenuButton,
-  IconButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { HStack, Button } from "@chakra-ui/react";
 
 import { useLogout } from "../../hooks/usersHooks/useLogout";
+import { Link } from "react-router-dom";
 
 const NavBarMenu = () => {
   const { logout } = useLogout();
@@ -16,17 +11,12 @@ const NavBarMenu = () => {
     logout();
   };
   return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label="Options"
-        icon={<HamburgerIcon />}
-        variant="outline"
-      />
-      <MenuList>
-        <MenuItem onClick={handleLogout}>Log out</MenuItem>
-      </MenuList>
-    </Menu>
+    <HStack justify={"space-between"}>
+      <Link to={"dashboard"}>Dashboard</Link>
+      <Link to={"appointments"}>Vencimientos</Link>
+      <Link to={"calendar"}>Calendario</Link>
+      <Button onClick={handleLogout}>Log out</Button>
+    </HStack>
   );
 };
 

@@ -1,18 +1,20 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import HomeModules from "../components/homePageComponents/HomeModules";
+
 import AppointmentsList from "../components/homePageComponents/AppointmentsList";
 
-const HomePage = () => {
+import CreateAppointment from "../components/CreateAppointment";
+
+const AppointmentsPage = () => {
   return (
-    <Grid templateColumns="40% 1fr" gap={2} h={"80vh"}>
+    <Grid templateColumns="20% 1fr" gap={2} h={"80vh"}>
       <GridItem h="100%">
-        <AppointmentsList />
+        <CreateAppointment />
       </GridItem>
       <GridItem h="100%">
-        <HomeModules />
+        <AppointmentsList />
       </GridItem>
     </Grid>
   );
 };
 
-export default HomePage;
+export default AppointmentsPage;

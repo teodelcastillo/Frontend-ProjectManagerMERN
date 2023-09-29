@@ -41,7 +41,7 @@ function CaseGrid() {
         // Assign an urgency value to each case based on your criteria
         const casesWithUrgency = cases.map((caseItem) => {
           const appointmentDates = caseItem.appointments.map(
-            (appointment: Appointment) => appointment.deadlineDate
+            (appointment: Appointment) => appointment.date
           );
 
           const daysDifferences = appointmentDates.map((date) =>

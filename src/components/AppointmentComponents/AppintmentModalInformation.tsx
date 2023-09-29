@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { Appointment } from "../data/models";
+import { Appointment } from "../../data/models";
 
 interface Props {
   appointment: Appointment;
@@ -23,7 +23,7 @@ const AppintmentModalInformation = ({ appointment }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
-  const formattedDate = new Date(appointment.deadlineDate).toLocaleString();
+  const formattedDate = new Date(appointment.date).toLocaleString();
 
   return (
     <>

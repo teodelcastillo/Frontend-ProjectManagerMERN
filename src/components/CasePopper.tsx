@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { CalendarIcon } from "@chakra-ui/icons";
 import React from "react";
-import CalendarComponent from "./CalendarComponent";
+import CalendarComponent from "./calendarComponents/CalendarComponent";
 
 const CasePopper = () => {
   const initialFocusRef = React.useRef();

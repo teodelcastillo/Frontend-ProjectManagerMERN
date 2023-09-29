@@ -11,6 +11,7 @@ import MainDashboard from "./pages/MainDashboard";
 import CalendarPage from "./pages/CalendarPage";
 import useAuthContext from "./hooks/useAuthContext";
 import HomeNavBar from "./components/homePageComponents/HomeNavBar";
+import AppointmentsPage from "./pages/AppointmentsPage";
 
 function App() {
   const { state } = useAuthContext();
@@ -35,6 +36,10 @@ function App() {
         <Route
           path="/calendar"
           element={state.user ? <CalendarPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/appointments"
+          element={state.user ? <AppointmentsPage /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>

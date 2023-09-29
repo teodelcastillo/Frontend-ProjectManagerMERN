@@ -1,4 +1,4 @@
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logocompleto from "../../assets/logocompleto.png";
 

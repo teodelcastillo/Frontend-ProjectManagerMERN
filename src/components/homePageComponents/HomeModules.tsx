@@ -8,49 +8,93 @@ const HomeModules = () => {
   };
 
   return (
-    <HStack
-      justify={"space-between"}
-      padding={"50px"}
+    <Box
+      maxHeight="100%"
+      overflow="auto"
+      padding={"20px"}
       h={"100%"}
-      align={"center"}
+      display={"flex"}
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      border={"1px"}
+      borderColor={"#C0B168"}
+      borderRadius={10}
+      m={"15px"}
     >
-      <Box
-        as="button"
-        h={"70%"}
-        w={"25%"}
-        color={"#633388"}
-        borderRadius={20}
-        border={"1px"}
-        borderColor={"#C2B369"}
-        onClick={() => handleClick("dashboard")}
-      >
-        Dashboard
-      </Box>
-      <Box
-        as="button"
-        h={"70%"}
-        w={"25%"}
-        color={"#633388"}
-        borderRadius={20}
-        border={"1px"}
-        borderColor={"#C2B369"}
-        onClick={() => handleClick("calendar")}
-      >
-        Calendar
-      </Box>
-      <Box
-        as="button"
-        h={"70%"}
-        w={"25%"}
-        color={"#633388"}
-        borderRadius={20}
-        border={"1px"}
-        borderColor={"#C2B369"}
-        onClick={() => handleClick("users")}
-      >
-        Users
-      </Box>
-    </HStack>
+      <HStack justify={"space-between"} h={"100%"} align={"center"} w={"100%"}>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("dashboard")}
+        >
+          Dashboard
+        </Box>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("calendar")}
+        >
+          Calendar
+        </Box>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("users")}
+        >
+          Users
+        </Box>
+      </HStack>
+      <HStack justify={"space-between"} h={"100%"} align={"center"} w={"100%"}>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("appointments")}
+        >
+          Appointments
+        </Box>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("calendar")}
+        ></Box>
+        <Box
+          as="button"
+          h={"70%"}
+          w={"25%"}
+          color={"#633388"}
+          borderRadius={20}
+          border={"1px"}
+          borderColor={"#C2B369"}
+          onClick={() => handleClick("users")}
+        ></Box>
+      </HStack>
+    </Box>
   );
 };
 
