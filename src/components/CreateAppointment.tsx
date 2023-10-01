@@ -1,11 +1,11 @@
+import { useState } from "react";
 import {
+  Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
-  FormHelperText,
-  FormErrorMessage,
   Container,
-  Button,
   useDisclosure,
   Modal,
   ModalBody,
@@ -15,61 +15,62 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import Calendar from "./calendarComponents/Calendar";
 import { useCreateAppointment } from "../hooks/appointmentsHooks/useCreateAppointment";
+import CaseSelect from "./caseComponents/CaseSelect";
 
 const CreateAppointment = () => {
-  const [input, setInput] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleInputChange = (e) => setInput(e.target.value);
-  const isError = input === "";
   const { createNewAppointment } = useCreateAppointment();
 
-  // State to store appointment data
-  const [appointmentData, setAppointmentData] = useState({
-    title: "",
-    description: "",
-  });
+  // Separate states for title and description
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  // Handle input changes for appointment data
-  const handleAppointmentDataChange = (e) => {
-    const { name, value } = e.target;
-    setAppointmentData({ ...appointmentData, [name]: value });
-  };
+  // Validation states
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
 
   // Function to create a new appointment
   const handleCreateAppointment = async () => {
-    try {
-      // Check if required fields are filled
-      if (!appointmentData.title || !appointmentData.description) {
-        // Handle error here (e.g., show a message to the user)
-        console.error("Title and description are required.");
-        return;
-      }
+    // Reset previous error messages
+    setTitleError("");
+    setDescriptionError("");
 
-      // Call the createNewAppointment function with appointmentData
-      const createdAppointment = await createNewAppointment(appointmentData);
+    // Check if required fields are filled
+    if (!title) {
+      setTitleError("Title is required.");
+      return;
+    }
 
-      if (createdAppointment) {
-        // Handle success (e.g., close the modal)
-        onClose();
-      } else {
-        // Handle error here (e.g., show a message to the user)
-        console.error("Error creating appointment.");
-      }
-    } catch (error) {
-      console.error("Error creating appointment:", error);
+    if (!description) {
+      setDescriptionError("Description is required.");
+      return;
+    }
+
+    // Call the createNewAppointment function with title and description
+    const createdAppointment = await createNewAppointment({
+      title,
+      description,
+    });
+
+    if (createdAppointment) {
+      // Clear input fields and close the modal
+      setTitle("");
+      setDescription("");
+      onClose();
+    } else {
+      // Handle error here (e.g., show a message to the user)
+      console.error("Error creating appointment.");
     }
   };
 
   return (
     <>
       <Button onClick={onOpen}>NUEVO VENCIMIENTO</Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Informacion del vencimiento</ModalHeader>
+          <ModalHeader>Nuevo vencimiento</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Container
@@ -79,37 +80,33 @@ const CreateAppointment = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <FormControl isInvalid={isError} marginBottom={"10px"}>
+              <FormControl isInvalid={!!titleError} marginBottom={"10px"}>
+                <FormControl marginBottom={"10px"}>
+                  <FormLabel>Causa relacionada</FormLabel>
+                  <CaseSelect onClientSelect={() => {}} maxCasesToShow={100} />
+                </FormControl>
                 <FormLabel>Titulo</FormLabel>
                 <Input
-                  type="title"
-                  value={input}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
-                {!isError ? (
-                  <FormHelperText>
-                    Ingrese el titulo del vencimiento.
-                  </FormHelperText>
-                ) : (
-                  <FormErrorMessage>Titulo es obligatorio.</FormErrorMessage>
-                )}
-                <FormLabel>Descripcion</FormLabel>
-                <Input
-                  type="description"
-                  value={input}
-                  onChange={handleInputChange}
-                />
-                {!isError ? (
-                  <FormHelperText>
-                    Ingrese la descripcion del vencimiento.
-                  </FormHelperText>
-                ) : (
-                  <FormErrorMessage>
-                    La descripcion es obligatoria.
-                  </FormErrorMessage>
+                {titleError && (
+                  <FormErrorMessage>{titleError}</FormErrorMessage>
                 )}
               </FormControl>
-              <Calendar />
+
+              <FormControl isInvalid={!!descriptionError} marginBottom={"10px"}>
+                <FormLabel>Descripcion</FormLabel>
+                <Input
+                  type="text"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                {descriptionError && (
+                  <FormErrorMessage>{descriptionError}</FormErrorMessage>
+                )}
+              </FormControl>
             </Container>
           </ModalBody>
 
