@@ -1,14 +1,15 @@
 // ./src/services/appointmentsService.ts
 
 import axiosInstance from "./axios";
-import { Appointments } from "../data/models";
+import { Appointment } from "../data/models";
 
 export interface AppointmentResponse {
-  appointmentResponse: Appointments;
+  _id?: string;
+  appointmentResponse: Appointment;
 }
 
 // Function to create a new appointment
-export const createAppointment = async ({appointmentResponse}: AppointmentResponse): Promise<Appointments | null> => {
+export const createAppointment = async ({appointmentResponse}: AppointmentResponse): Promise<Appointment | null> => {
     try {
       const response = await axiosInstance.post<AppointmentResponse>("/appointments", { appointmentResponse });
       return response.data.appointmentResponse;
@@ -19,22 +20,22 @@ export const createAppointment = async ({appointmentResponse}: AppointmentRespon
 
 }
 
-export const getAllAppointments = async (): Promise<Appointments[]> => {
+export const getAllAppointment = async (): Promise<Appointment[]> => {
 
     try {
       const response = await axiosInstance.get("/appointments");
-      return response.data as Appointments[];
+      return response.data as Appointment[];
     } catch (error) {
-      console.error("Error fetching appointments:", error);
+      console.error("Error fetching appointment:", error);
       return [];
     }
 }
 
-export const getAppointmentById = async (appointmentId: string): Promise<Appointments | null> => {
+export const getAppointmentById = async (appointmentId: string): Promise<Appointment | null> => {
 
     try {
       const response = await axiosInstance.get(`/appointments/${appointmentId}`);
-      return response.data as Appointments;
+      return response.data as Appointment;
     } catch (error) {
       console.error("Error fetching appointment by ID:", error);
       return null;
@@ -42,11 +43,11 @@ export const getAppointmentById = async (appointmentId: string): Promise<Appoint
 
 }
 
-export const updateAppointmentById = async (appointmentId: string): Promise<Appointments | null> => {
+export const updateAppointmentById = async (appointmentId: string): Promise<Appointment | null> => {
 
     try {
       const response = await axiosInstance.put(`/appointments/${appointmentId}`);
-      return response.data as Appointments;
+      return response.data as Appointment;
     } catch (error) {
       console.error("Error updating appointment by ID:", error);
       return null;
@@ -64,11 +65,11 @@ export const deleteAppointmentById = async (appointmentId: string): Promise<bool
     }
 }
 
-export const getAppointmentByDate = async (appointmentDate: string): Promise<Appointments | null> => {
+export const getAppointmentByDate = async (appointmentDate: string): Promise<Appointment | null> => {
 
     try {
       const response = await axiosInstance.get(`/appointments/${appointmentDate}`);
-      return response.data as Appointments;
+      return response.data as Appointment;
     } catch (error) {
       console.error("Error fetching appointment by date:", error);
       return null;
@@ -78,12 +79,12 @@ export const getAppointmentByDate = async (appointmentDate: string): Promise<App
 
 
 
-export const getAppointmentsByCaseId = async (caseId: string): Promise<Appointments[] | null> => {
+export const getAppointmentByCaseId = async (caseId: string): Promise<Appointment[] | null> => {
   try {
     const response = await axiosInstance.get(`/cases/${caseId}/appointments`);
-    return response.data as Appointments[];
+    return response.data as Appointment[];
   } catch (error) {
-    console.error("Error fetching appointments by case ID:", error);
+    console.error("Error fetching appointment by case ID:", error);
     return null;
   }
 }

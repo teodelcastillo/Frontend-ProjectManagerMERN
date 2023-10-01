@@ -17,10 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { useCreateAppointment } from "../hooks/appointmentsHooks/useCreateAppointment";
 import CaseSelect from "./caseComponents/CaseSelect";
+import { Case } from "../data/models";
 
 const CreateAppointment = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createNewAppointment } = useCreateAppointment();
+  const [selectedCase, setSelectedCase] = useState<Case | null>(null); // Initialize with null
+  const [selectedDate, setSelectedDate] = useState(""); // Initialize with empty string
 
   // Separate states for title and description
   const [title, setTitle] = useState("");
@@ -30,7 +33,6 @@ const CreateAppointment = () => {
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
 
-  // Function to create a new appointment
   const handleCreateAppointment = async () => {
     // Reset previous error messages
     setTitleError("");
@@ -47,11 +49,25 @@ const CreateAppointment = () => {
       return;
     }
 
-    // Call the createNewAppointment function with title and description
-    const createdAppointment = await createNewAppointment({
-      title,
-      description,
-    });
+    // Ensure selectedCase is not null before creating the appointment
+    if (!selectedCase) {
+      console.error("A case must be selected.");
+      return;
+    }
+
+    // Create a new appointment object to send to the backend
+    const newAppointment = {
+      appointmentResponse: {
+        _id: "",
+        title,
+        date: selectedDate, // Replace with your selected date value
+        description,
+        relatedTo: selectedCase._id, // Use selectedCase._id as string
+      },
+    };
+
+    // Call the createNewAppointment function with the newAppointment object
+    const createdAppointment = await createNewAppointment(newAppointment);
 
     if (createdAppointment) {
       // Clear input fields and close the modal
@@ -80,11 +96,18 @@ const CreateAppointment = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <FormControl isInvalid={!!titleError} marginBottom={"10px"}>
-                <FormControl marginBottom={"10px"}>
-                  <FormLabel>Causa relacionada</FormLabel>
-                  <CaseSelect onClientSelect={() => {}} maxCasesToShow={100} />
-                </FormControl>
+              <FormControl marginBottom={"10px"} isRequired>
+                <FormLabel>Causa relacionada</FormLabel>
+                <CaseSelect
+                  onSelect={(selectedCase) => setSelectedCase(selectedCase)} // Pass a callback to update the selected case
+                  maxCasesToShow={100}
+                />
+              </FormControl>
+              <FormControl
+                isInvalid={!!titleError}
+                marginBottom={"10px"}
+                isRequired
+              >
                 <FormLabel>Titulo</FormLabel>
                 <Input
                   type="text"
@@ -106,6 +129,14 @@ const CreateAppointment = () => {
                 {descriptionError && (
                   <FormErrorMessage>{descriptionError}</FormErrorMessage>
                 )}
+              </FormControl>
+              <FormControl marginBottom={"10px"} isRequired>
+                <FormLabel>Dia y hora</FormLabel>
+                <Input
+                  placeholder="Select Date and Time"
+                  size="md"
+                  type="datetime-local"
+                />
               </FormControl>
             </Container>
           </ModalBody>

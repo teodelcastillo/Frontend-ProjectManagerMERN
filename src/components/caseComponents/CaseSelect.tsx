@@ -2,9 +2,7 @@ import { Case } from "../../data/models";
 import { useEffect, useRef, useState } from "react";
 import { useGetAllCases } from "../../hooks/caseHooks/useGetAllCases";
 import {
-  Alert,
   Button,
-  Flex,
   List,
   ListItem,
   Modal,
@@ -19,15 +17,11 @@ import {
 import SearchInput from "../SearchInput";
 
 interface CaseSelectProps {
-  onClientSelect: (selectedCase: Case) => void;
+  onSelect: (selectedCase: Case) => void;
   maxCasesToShow: number;
 }
 
-const CaseSelect = ({
-  onClientSelect,
-
-  maxCasesToShow,
-}: CaseSelectProps) => {
+const CaseSelect = ({ onSelect, maxCasesToShow }: CaseSelectProps) => {
   const { fetchAllCases } = useGetAllCases();
   const [cases, setCases] = useState<Case[]>([]);
   const [selectedCase, setSelectedCase] = useState<string>("");
@@ -75,8 +69,9 @@ const CaseSelect = ({
   const casesToRender = filteredCases.slice(0, maxCasesToShow);
 
   const handleCaseClick = (caseItem: Case) => {
-    onClientSelect(caseItem);
+    onSelect(caseItem);
     setSelectedCase(caseItem._id);
+    onClose();
   };
 
   useEffect(() => {
@@ -93,7 +88,7 @@ const CaseSelect = ({
       (caseItem) => caseItem._id === event.target.value
     );
     if (selectedCaseObject) {
-      onClientSelect(selectedCaseObject);
+      onSelect(selectedCaseObject);
     }
   };
 

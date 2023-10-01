@@ -22,7 +22,7 @@ export interface Case {
     title: string;
     date: string;
     description: string;
-    relatedTo: string; // case id
+    relatedTo: string | null; 
   }
   
   
