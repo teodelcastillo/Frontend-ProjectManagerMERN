@@ -70,7 +70,6 @@ const CaseSelect = ({ onSelect, maxCasesToShow }: CaseSelectProps) => {
 
   const handleCaseClick = (caseItem: Case) => {
     onSelect(caseItem);
-    setSelectedCase(caseItem._id);
     onClose();
   };
 
@@ -118,6 +117,7 @@ const CaseSelect = ({ onSelect, maxCasesToShow }: CaseSelectProps) => {
                   as={Button}
                   maxH={"48px"}
                   display={"block"}
+                  onClick={() => handleCaseClick(caseItem)}
                 >
                   {truncateString(caseItem.caseName, 50)}
                 </ListItem>

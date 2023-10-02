@@ -10,13 +10,17 @@ export interface AppointmentResponse {
 
 // Function to create a new appointment
 export const createAppointment = async ({appointmentResponse}: AppointmentResponse): Promise<Appointment | null> => {
-    try {
-      const response = await axiosInstance.post<AppointmentResponse>("/appointments", { appointmentResponse });
-      return response.data.appointmentResponse;
-    } catch (error) {
-      console.error("Error creating appointment:", error);
-      return null;
-    }
+  console.log("Request Data:", { appointmentResponse });
+
+  try {
+    const response = await axiosInstance.post<AppointmentResponse>("appointments", { appointmentResponse });
+    console.log("Response Data:", response.data);
+    return response.data.appointmentResponse;
+  } catch (error) {
+    console.error("Error creating appointment:", error);
+    return null;
+  }
+  
 
 }
 

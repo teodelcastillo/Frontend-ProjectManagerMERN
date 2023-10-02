@@ -33,6 +33,12 @@ const CreateAppointment = () => {
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
 
+  // Callback to handle case selection
+  const handleCaseSelect = (selectedCase: Case) => {
+    // Update the client state with the selected case
+    setSelectedCase(selectedCase);
+  };
+
   const handleCreateAppointment = async () => {
     // Reset previous error messages
     setTitleError("");
@@ -62,7 +68,7 @@ const CreateAppointment = () => {
         title,
         date: selectedDate, // Replace with your selected date value
         description,
-        relatedTo: selectedCase._id, // Use selectedCase._id as string
+        relatedTo: `ObjectID('${selectedCase._id}')`, // Use selectedCase._id as string
       },
     };
 
@@ -97,9 +103,9 @@ const CreateAppointment = () => {
               alignItems="center"
             >
               <FormControl marginBottom={"10px"} isRequired>
-                <FormLabel>Causa relacionada</FormLabel>
+                <FormLabel>Causa: {selectedCase?.caseName || "-"}</FormLabel>
                 <CaseSelect
-                  onSelect={(selectedCase) => setSelectedCase(selectedCase)} // Pass a callback to update the selected case
+                  onSelect={handleCaseSelect} // Pass the handleCaseSelect callback to update the selected case
                   maxCasesToShow={100}
                 />
               </FormControl>
@@ -136,6 +142,8 @@ const CreateAppointment = () => {
                   placeholder="Select Date and Time"
                   size="md"
                   type="datetime-local"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
                 />
               </FormControl>
             </Container>
