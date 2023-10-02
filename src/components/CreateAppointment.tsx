@@ -63,13 +63,11 @@ const CreateAppointment = () => {
 
     // Create a new appointment object to send to the backend
     const newAppointment = {
-      appointmentResponse: {
-        _id: "",
-        title,
-        date: selectedDate, // Replace with your selected date value
-        description,
-        relatedTo: `ObjectID('${selectedCase._id}')`, // Use selectedCase._id as string
-      },
+      _id: "",
+      title,
+      date: selectedDate, // Replace with your selected date value
+      description,
+      relatedTo: selectedCase._id,
     };
 
     // Call the createNewAppointment function with the newAppointment object

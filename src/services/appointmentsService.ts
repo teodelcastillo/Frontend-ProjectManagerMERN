@@ -1,28 +1,21 @@
-// ./src/services/appointmentsService.ts
-
 import axiosInstance from "./axios";
 import { Appointment } from "../data/models";
 
-export interface AppointmentResponse {
-  _id?: string;
-  appointmentResponse: Appointment;
-}
-
 // Function to create a new appointment
-export const createAppointment = async ({appointmentResponse}: AppointmentResponse): Promise<Appointment | null> => {
-  console.log("Request Data:", { appointmentResponse });
+export const createAppointment = async (appointmentResponse: Appointment): Promise<Appointment | null> => {
+  console.log("Request Data:", appointmentResponse);
 
   try {
-    const response = await axiosInstance.post<AppointmentResponse>("appointments", { appointmentResponse });
+    const response = await axiosInstance.post<Appointment>("appointments", appointmentResponse);
     console.log("Response Data:", response.data);
-    return response.data.appointmentResponse;
+    return response.data;
   } catch (error) {
     console.error("Error creating appointment:", error);
     return null;
   }
-  
-
 }
+
+
 
 export const getAllAppointment = async (): Promise<Appointment[]> => {
 
