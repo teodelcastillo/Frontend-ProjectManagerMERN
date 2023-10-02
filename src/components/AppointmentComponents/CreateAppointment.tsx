@@ -15,9 +15,9 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useCreateAppointment } from "../hooks/appointmentsHooks/useCreateAppointment";
-import CaseSelect from "./caseComponents/CaseSelect";
-import { Case } from "../data/models";
+import { useCreateAppointment } from "../../hooks/appointmentsHooks/useCreateAppointment";
+import CaseSelect from "../caseComponents/CaseSelect";
+import { Case } from "../../data/models";
 
 const CreateAppointment = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

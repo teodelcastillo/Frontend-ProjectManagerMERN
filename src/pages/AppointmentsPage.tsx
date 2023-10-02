@@ -2,7 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 
 import AppointmentsList from "../components/homePageComponents/AppointmentsList";
 
-import CreateAppointment from "../components/CreateAppointment";
+import CreateAppointment from "../components/AppointmentComponents/CreateAppointment";
 
 const AppointmentsPage = () => {
   return (
