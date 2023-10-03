@@ -1,7 +1,7 @@
 import { Alert, Box, HStack, Heading, Text } from "@chakra-ui/react";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
 
-import { Appointment } from "../data/models";
+import { Appointment } from "../../data/models";
 
 interface Props {
   appointments: Appointment[];
@@ -48,6 +48,7 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
     }
 
     const formattedDate = formatDateTime(new Date(appointmentItem.date));
+    console.log("Formatted Date:", formattedDate);
 
     return (
       <Alert
