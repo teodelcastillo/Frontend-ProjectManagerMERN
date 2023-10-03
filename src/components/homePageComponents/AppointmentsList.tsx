@@ -85,8 +85,7 @@ const AppointmentsList = () => {
 
   return (
     <Box
-      maxHeight="100%"
-      overflow="auto"
+      maxHeight="800px"
       padding={"20px"}
       h={"100%"}
       display={"flex"}
@@ -102,10 +101,11 @@ const AppointmentsList = () => {
         <Spinner />
       ) : (
         <>
-          <Box position="relative" padding="10">
+          <Box position="relative" padding="10" width={"100%"}>
             <AbsoluteCenter px="4">VENCIMIENTOS</AbsoluteCenter>
           </Box>
-          <List spacing={3} w={"100%"} h={"100%"}>
+
+          <List spacing={3} w={"100%"} h={"100%"} overflow={"auto"}>
             {sortedAppointments.map((appointment) => {
               const daysDifference = calculateDaysDifference(
                 new Date(appointment.date)

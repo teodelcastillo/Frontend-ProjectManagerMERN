@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Box,
 } from "@chakra-ui/react";
 import { useCreateAppointment } from "../../hooks/appointmentsHooks/useCreateAppointment";
 import CaseSelect from "../caseComponents/CaseSelect";
@@ -86,82 +87,99 @@ const CreateAppointment = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>NUEVO VENCIMIENTO</Button>
-      <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Nuevo vencimiento</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Container
-              overflow="auto"
-              display={"flex"}
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <FormControl marginBottom={"10px"} isRequired>
-                <FormLabel>Causa: {selectedCase?.caseName || "-"}</FormLabel>
-                <CaseSelect
-                  onSelect={handleCaseSelect} // Pass the handleCaseSelect callback to update the selected case
-                  maxCasesToShow={100}
-                />
-              </FormControl>
-              <FormControl
-                isInvalid={!!titleError}
-                marginBottom={"10px"}
-                isRequired
+      <Box
+        maxHeight="800px"
+        padding={"20px"}
+        h={"100%"}
+        display={"flex"}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        border={"1px"}
+        borderColor={"#C0B168"}
+        borderRadius={10}
+        m={"15px"}
+      >
+        <Button onClick={onOpen}>NUEVO VENCIMIENTO</Button>
+        <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Nuevo vencimiento</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Container
+                overflow="auto"
+                display={"flex"}
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
               >
-                <FormLabel>Titulo</FormLabel>
-                <Input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                {titleError && (
-                  <FormErrorMessage>{titleError}</FormErrorMessage>
-                )}
-              </FormControl>
+                <FormControl marginBottom={"10px"} isRequired>
+                  <FormLabel>Causa: {selectedCase?.caseName || "-"}</FormLabel>
+                  <CaseSelect
+                    onSelect={handleCaseSelect} // Pass the handleCaseSelect callback to update the selected case
+                    maxCasesToShow={100}
+                  />
+                </FormControl>
+                <FormControl
+                  isInvalid={!!titleError}
+                  marginBottom={"10px"}
+                  isRequired
+                >
+                  <FormLabel>Titulo</FormLabel>
+                  <Input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  {titleError && (
+                    <FormErrorMessage>{titleError}</FormErrorMessage>
+                  )}
+                </FormControl>
 
-              <FormControl isInvalid={!!descriptionError} marginBottom={"10px"}>
-                <FormLabel>Descripcion</FormLabel>
-                <Input
-                  type="text"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                {descriptionError && (
-                  <FormErrorMessage>{descriptionError}</FormErrorMessage>
-                )}
-              </FormControl>
-              <FormControl marginBottom={"10px"} isRequired>
-                <FormLabel>Dia y hora</FormLabel>
-                <Input
-                  placeholder="Select Date and Time"
-                  size="md"
-                  type="datetime-local"
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                />
-              </FormControl>
-            </Container>
-          </ModalBody>
+                <FormControl
+                  isInvalid={!!descriptionError}
+                  marginBottom={"10px"}
+                >
+                  <FormLabel>Descripcion</FormLabel>
+                  <Input
+                    type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  {descriptionError && (
+                    <FormErrorMessage>{descriptionError}</FormErrorMessage>
+                  )}
+                </FormControl>
+                <FormControl marginBottom={"10px"} isRequired>
+                  <FormLabel>Dia y hora</FormLabel>
+                  <Input
+                    placeholder="Select Date and Time"
+                    size="md"
+                    type="datetime-local"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                  />
+                </FormControl>
+              </Container>
+            </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose} width={"95px"}>
-              Cancelar
-            </Button>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={handleCreateAppointment}
-              width={"95px"}
-            >
-              Crear
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+            <ModalFooter>
+              <Button colorScheme="red" mr={3} onClick={onClose} width={"95px"}>
+                Cancelar
+              </Button>
+              <Button
+                colorScheme="blue"
+                mr={3}
+                onClick={handleCreateAppointment}
+                width={"95px"}
+              >
+                Crear
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Box>
     </>
   );
 };

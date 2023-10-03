@@ -20,7 +20,7 @@ function App() {
     <Router>
       <HomeNavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={state.user ? <HomePage /> : <LoginPage />} />
         <Route
           path="/login"
           element={state.user ? <Navigate to="/" /> : <LoginPage />}

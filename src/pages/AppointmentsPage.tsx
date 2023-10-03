@@ -6,11 +6,11 @@ import CreateAppointment from "../components/AppointmentComponents/CreateAppoint
 
 const AppointmentsPage = () => {
   return (
-    <Grid templateColumns="20% 1fr" gap={2} h={"80vh"}>
+    <Grid templateColumns="20% 1fr" gap={2} h="85vh">
       <GridItem h="100%">
         <CreateAppointment />
       </GridItem>
-      <GridItem h="100%">
+      <GridItem>
         <AppointmentsList />
       </GridItem>
     </Grid>
