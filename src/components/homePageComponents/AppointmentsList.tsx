@@ -40,7 +40,7 @@ const AppointmentsList = () => {
         hour: "2-digit",
         minute: "2-digit",
       };
-      return date.toLocaleString("en-US", options);
+      return date.toLocaleString("es-AR", options);
     }
     return ""; // Return an empty string if date is undefined or invalid
   };
@@ -122,9 +122,15 @@ const AppointmentsList = () => {
               const formattedDate = formatDateTime(new Date(appointment.date));
 
               return (
-                <Alert key={appointment._id} colorScheme={colorScheme}>
-                  <AlertTitle>{appointment.title}</AlertTitle>
-                  <AlertTitle>{formattedDate}</AlertTitle>
+                <Alert
+                  key={appointment._id}
+                  colorScheme={colorScheme}
+                  justifyContent={"space-between"}
+                >
+                  <Box>
+                    <AlertTitle>{appointment.title}</AlertTitle>
+                    <AlertDescription>{formattedDate}</AlertDescription>
+                  </Box>
                   <AlertDescription>{appointment.description}</AlertDescription>
                 </Alert>
               );
