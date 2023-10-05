@@ -16,7 +16,7 @@ const formatDateTime = (date: Date | undefined) => {
       hour: "2-digit",
       minute: "2-digit",
     };
-    return date.toLocaleString("en-US", options);
+    return date.toLocaleString("es-AR", options);
   }
   return ""; // Return an empty string if date is undefined or invalid
 };

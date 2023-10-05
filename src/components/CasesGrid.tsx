@@ -40,7 +40,13 @@ function CaseGrid() {
 
         // Assign an urgency value to each case based on your criteria
         const casesWithUrgency = cases.map((caseItem) => {
-          const appointmentDates = caseItem.appointments.map(
+          // Filter out appointments where isDone is false
+          const appointmentsWithIsDoneFalse = caseItem.appointments.filter(
+            (appointment: Appointment) => !appointment.isDone
+          );
+
+          // Extract appointment dates for the remaining appointments
+          const appointmentDates = appointmentsWithIsDoneFalse.map(
             (appointment: Appointment) => appointment.date
           );
 
