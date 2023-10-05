@@ -20,7 +20,7 @@ export const createAppointment = async (appointmentResponse: Appointment): Promi
 export const getAllAppointment = async (): Promise<Appointment[]> => {
 
     try {
-      const response = await axiosInstance.get("/appointments");
+      const response = await axiosInstance.get("/");
       return response.data as Appointment[];
     } catch (error) {
       console.error("Error fetching appointment:", error);
