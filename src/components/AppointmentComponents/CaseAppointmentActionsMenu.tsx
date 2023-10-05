@@ -1,7 +1,7 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import { HStack, Button } from "@chakra-ui/react";
 import AppintmentModalInformation from "./AppintmentModalInformation";
-import { Appointment } from "../data/models";
+import { Appointment } from "../../data/models";
 
 interface Props {
   appointment: Appointment;

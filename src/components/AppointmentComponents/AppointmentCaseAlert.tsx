@@ -1,4 +1,4 @@
-import { Alert, Box, HStack, Heading, Stack, Text } from "@chakra-ui/react";
+import { Alert, Box, Stack, Text } from "@chakra-ui/react";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
 
 import { Appointment } from "../../data/models";
