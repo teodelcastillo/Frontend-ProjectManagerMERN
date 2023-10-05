@@ -20,9 +20,10 @@ import { Appointment } from "../../data/models";
 
 interface Props {
   appointmentId: Appointment["_id"];
+  relatedTo: Appointment["relatedTo"]; // Assuming you have access to relatedTo
 }
 
-const MarkAsDone = ({ appointmentId }: Props) => {
+const MarkAsDone = ({ appointmentId, relatedTo }: Props) => {
   const { state } = useAuthContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { markAsDone } = useMarkAppointmentAsDone();
@@ -33,12 +34,13 @@ const MarkAsDone = ({ appointmentId }: Props) => {
 
   const handleMarkAsDone = async () => {
     try {
-      // Call the markAsDone function with appointmentId, isDone, user, and comment
+      // Call the markAsDone function with appointmentId, isDone, user, comment, and relatedTo
       const updatedAppointment = await markAsDone(
         appointmentId,
         true,
         user,
-        comment
+        comment,
+        relatedTo
       );
 
       // Handle the response from the backend, e.g., show a success message

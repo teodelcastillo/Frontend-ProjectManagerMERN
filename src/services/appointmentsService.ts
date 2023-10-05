@@ -90,13 +90,15 @@ export const markAppointmentAsDone = async (
   appointmentId: string,
   isDone: boolean,
   user: string,
-  comment: string
+  comment: string,
+  relatedTo: string 
 ): Promise<Appointment | null> => {
   try {
     const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, {
       isDone,
       comment,
       user,
+      relatedTo, 
     });
     return response.data as Appointment;
   } catch (error) {
