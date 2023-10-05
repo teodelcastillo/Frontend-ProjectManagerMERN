@@ -7,7 +7,7 @@ import {
   getAppointmentById,
   updateAppointmentById,
   deleteAppointmentById,
-  getAppointmentsByCaseId
+  getAppointmentByCaseId
 } from "../../services/appointmentsService";
 import { Appointment } from "../../data/models"; // Import the appointment model or type
 
@@ -64,17 +64,12 @@ export const useDeleteAppointmentById = () => {
 };
 
 
-export const useGetAppointmentByCaseId = () => {
-
-}
-
-// ./src/hooks/useGetAppointmentsByCaseId.ts
 
 export const useGetAppointmentsByCaseId = () => {
   const fetchAppointmentsByCaseId = useCallback(
     async (caseId: string): Promise<Appointment[] | null> => {
       try {
-        const appointments = await getAppointmentsByCaseId(caseId);
+        const appointments = await getAppointmentByCaseId(caseId);
         return appointments;
       } catch (error) {
         console.error("Error fetching appointments by case ID:", error);

@@ -75,7 +75,6 @@ export const getAppointmentByDate = async (appointmentDate: string): Promise<App
 }
 
 
-
 export const getAppointmentByCaseId = async (caseId: string): Promise<Appointment[] | null> => {
   try {
     const response = await axiosInstance.get(`/cases/${caseId}/appointments`);
@@ -87,7 +86,7 @@ export const getAppointmentByCaseId = async (caseId: string): Promise<Appointmen
 }
 
 // Function to update the "isDone" field of an appointment by ID
-export const updateAppointmentIsDoneById = async (appointmentId: string, isDone: boolean): Promise<Appointment | null> => {
+export const markAppointmentAsDone = async (appointmentId: string, isDone: boolean): Promise<Appointment | null> => {
   try {
     const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, { isDone });
     return response.data as Appointment;
