@@ -72,7 +72,8 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
     <>
       <Box>
         <Stack h={"250px"} overflow={"auto"}>
-          <Heading size="sm">Vencimientos</Heading>
+          <Text as={"b"}>Vencimientos: {appointmentElements.length}</Text>
+
           <Stack overflow={"auto"}>{appointmentElements}</Stack>
         </Stack>
       </Box>
