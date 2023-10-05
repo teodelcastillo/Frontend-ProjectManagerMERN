@@ -89,8 +89,8 @@ export const getAppointmentByCaseId = async (caseId: string): Promise<Appointmen
 export const markAppointmentAsDone = async (
   appointmentId: string,
   isDone: boolean,
-  comment: string,
-  user: string
+  user: string,
+  comment: string
 ): Promise<Appointment | null> => {
   try {
     const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, {
