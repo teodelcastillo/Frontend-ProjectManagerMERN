@@ -1,4 +1,4 @@
-import { Alert, Box, HStack, Heading, Text } from "@chakra-ui/react";
+import { Alert, Box, HStack, Heading, Stack, Text } from "@chakra-ui/react";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
 
 import { Appointment } from "../../data/models";
@@ -52,12 +52,12 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
 
     return (
       <Alert
-        key={`alert-${appointmentItem._id}`} // Assign a unique key
+        key={`alert-${appointmentItem._id}`}
         justifyContent={"space-between"}
         colorScheme={colorScheme}
         borderRadius={"7px"}
         p={"12px"}
-        m={"10px 0"}
+        minH={"72px"}
       >
         <Box>
           <Text as={"b"}>{appointmentItem.title}</Text>
@@ -71,10 +71,10 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
   return (
     <>
       <Box>
-        <HStack h={"24px"}>
+        <Stack h={"250px"} overflow={"auto"}>
           <Heading size="sm">Vencimientos</Heading>
-        </HStack>
-        <HStack>{appointmentElements}</HStack>
+          <Stack overflow={"auto"}>{appointmentElements}</Stack>
+        </Stack>
       </Box>
     </>
   );
