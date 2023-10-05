@@ -14,8 +14,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 import React from "react";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const MarkAsDone = () => {
+  const { state } = useAuthContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
@@ -24,9 +26,6 @@ const MarkAsDone = () => {
     <>
       <Button onClick={onOpen}>
         <CheckIcon />
-      </Button>
-      <Button ml={4} ref={finalRef}>
-        I'll receive focus on close
       </Button>
 
       <Modal
@@ -37,25 +36,27 @@ const MarkAsDone = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>Marcar como hecho</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>First name</FormLabel>
-              <Input ref={initialRef} placeholder="First name" />
+              <FormLabel>Usuario</FormLabel>
+              <Input ref={initialRef} value={state.user?.username} readOnly />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
-              <Input placeholder="Last name" />
+              <FormLabel>Comentario</FormLabel>
+              <Input placeholder="Detalle de actividad" />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Save
+            <Button onClick={onClose} colorScheme="red" mr={3}>
+              Cancelar
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button colorScheme="blue" w={"94.11px"}>
+              Hecho
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
