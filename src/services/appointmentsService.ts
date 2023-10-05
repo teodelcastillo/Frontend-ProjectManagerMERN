@@ -20,7 +20,7 @@ export const createAppointment = async (appointmentResponse: Appointment): Promi
 export const getAllAppointment = async (): Promise<Appointment[]> => {
 
     try {
-      const response = await axiosInstance.get("/");
+      const response = await axiosInstance.get("/appointments");
       return response.data as Appointment[];
     } catch (error) {
       console.error("Error fetching appointment:", error);
@@ -85,13 +85,22 @@ export const getAppointmentByCaseId = async (caseId: string): Promise<Appointmen
   }
 }
 
-// Function to update the "isDone" field of an appointment by ID
-export const markAppointmentAsDone = async (appointmentId: string, isDone: boolean): Promise<Appointment | null> => {
+// Function to mark an appointment as done with a comment
+export const markAppointmentAsDone = async (
+  appointmentId: string,
+  isDone: boolean,
+  comment: string,
+  user: string
+): Promise<Appointment | null> => {
   try {
-    const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, { isDone });
+    const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, {
+      isDone,
+      comment,
+      user,
+    });
     return response.data as Appointment;
   } catch (error) {
-    console.error("Error updating appointment 'isDone' by ID:", error);
+    console.error("Error marking appointment as done:", error);
     return null;
   }
-}
+};

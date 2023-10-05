@@ -13,15 +13,48 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
+import { useMarkAppointmentAsDone } from "../../hooks/appointmentsHooks/useMarkAppointmentAsDone"; // Import the hook
+import { Appointment } from "../../data/models";
 
-const MarkAsDone = () => {
+interface Props {
+  appointmentId: Appointment["_id"];
+}
+
+const MarkAsDone = ({ appointmentId }: Props) => {
   const { state } = useAuthContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { markAsDone } = useMarkAppointmentAsDone();
+  const [comment, setComment] = useState("");
+
+  const user = state.user?.username || "Unknown user";
+  console.log("id", appointmentId);
+
+  const handleMarkAsDone = async () => {
+    try {
+      // Call the markAsDone function with appointmentId, isDone, user, and comment
+      const updatedAppointment = await markAsDone(
+        appointmentId,
+        true,
+        user,
+        comment
+      );
+
+      // Handle the response from the backend, e.g., show a success message
+      console.log("Appointment marked as done:", updatedAppointment);
+
+      // Close the modal
+      onClose();
+    } catch (error) {
+      console.error("Error marking appointment as done:", error);
+      // Handle errors here, e.g., show an error message
+    }
+  };
 
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+
   return (
     <>
       <Button onClick={onOpen}>
@@ -46,7 +79,11 @@ const MarkAsDone = () => {
 
             <FormControl mt={4}>
               <FormLabel>Comentario</FormLabel>
-              <Input placeholder="Detalle de actividad" />
+              <Input
+                placeholder="Detalle de actividad"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)} // Update the comment state
+              />
             </FormControl>
           </ModalBody>
 
@@ -54,7 +91,7 @@ const MarkAsDone = () => {
             <Button onClick={onClose} colorScheme="red" mr={3}>
               Cancelar
             </Button>
-            <Button colorScheme="blue" w={"94.11px"}>
+            <Button colorScheme="blue" w={"94.11px"} onClick={handleMarkAsDone}>
               Hecho
             </Button>
           </ModalFooter>

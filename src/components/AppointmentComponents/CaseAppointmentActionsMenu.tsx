@@ -1,4 +1,4 @@
-import { HStack, Button } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import AppintmentModalInformation from "./AppintmentModalInformation";
 import { Appointment } from "../../data/models";
 import MarkAsDone from "./MarkAsDone";
@@ -8,10 +8,11 @@ interface Props {
 }
 
 const CaseAppointmentActionsMenu = ({ appointment }: Props) => {
+  console.log("appointment", appointment);
   return (
     <HStack>
       <AppintmentModalInformation appointment={appointment} />
-      <MarkAsDone />
+      <MarkAsDone appointmentId={appointment._id} />
     </HStack>
   );
 };

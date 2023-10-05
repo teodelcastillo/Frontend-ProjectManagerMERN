@@ -48,7 +48,6 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
     }
 
     const formattedDate = formatDateTime(new Date(appointmentItem.date));
-    console.log("Formatted Date:", formattedDate);
 
     return (
       <Alert

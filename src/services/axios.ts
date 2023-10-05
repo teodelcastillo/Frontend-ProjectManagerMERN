@@ -8,11 +8,11 @@ const axiosInstance = axios.create({
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      console.log("Interceptor: Request is being intercepted");
+
       const userJson = localStorage.getItem("user");
       const token = userJson ? (JSON.parse(userJson).token as string) : null;
       if (token) {
-        console.log("Interceptor: Adding Authorization Header");
+
         config.headers["Authorization"] = `Bearer ${token}`;
       }
       return config;
