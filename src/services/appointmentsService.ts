@@ -85,3 +85,14 @@ export const getAppointmentByCaseId = async (caseId: string): Promise<Appointmen
     return null;
   }
 }
+
+// Function to update the "isDone" field of an appointment by ID
+export const updateAppointmentIsDoneById = async (appointmentId: string, isDone: boolean): Promise<Appointment | null> => {
+  try {
+    const response = await axiosInstance.put(`/appointments/${appointmentId}/isDone`, { isDone });
+    return response.data as Appointment;
+  } catch (error) {
+    console.error("Error updating appointment 'isDone' by ID:", error);
+    return null;
+  }
+}
