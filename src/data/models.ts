@@ -22,7 +22,11 @@ export interface Case {
     title: string;
     date: string;
     description: string;
-    relatedTo: string | null; 
+    relatedTo: string | null;
+    isDone: boolean;
+    doneDate: string | null;
+    user: string;
+    comment: string;
   }
   
   
