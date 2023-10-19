@@ -1,10 +1,11 @@
 import { Alert, Box, Stack, Text } from "@chakra-ui/react";
 import CaseAppointmentActionsMenu from "./CaseAppointmentActionsMenu";
 
-import { Appointment } from "../../data/models";
+import { Appointment, Case } from "../../data/models";
 
 interface Props {
   appointments: Appointment[];
+  caseId: Case["_id"];
 }
 
 // Function to format a date as a string in "DD/MM HH:MM" format
@@ -21,7 +22,7 @@ const formatDateTime = (date: Date | undefined) => {
   return ""; // Return an empty string if date is undefined or invalid
 };
 
-const AppointmentCaseAlert = ({ appointments }: Props) => {
+const AppointmentCaseAlert = ({ appointments, caseId }: Props) => {
   // Function to calculate the difference in days between two dates
   const calculateDaysDifference = (date: Date) => {
     const currentDate = new Date();
@@ -62,7 +63,10 @@ const AppointmentCaseAlert = ({ appointments }: Props) => {
           <Text as={"b"}>{appointmentItem.title}</Text>
           <Text>{formattedDate}</Text>
         </Box>
-        <CaseAppointmentActionsMenu appointment={appointmentItem} />
+        <CaseAppointmentActionsMenu
+          appointment={appointmentItem}
+          caseId={caseId}
+        />
       </Alert>
     );
   });

@@ -13,49 +13,41 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
-import { useMarkAppointmentAsDone } from "../../hooks/appointmentsHooks/useMarkAppointmentAsDone"; // Import the hook
-import { Appointment } from "../../data/models";
+import { useRef } from "react";
+import useMarkAppointmentInCaseAsDone from "../../hooks/caseHooks/useMarkAppointmentInCaseAsDone"; // Import your hook
 
 interface Props {
-  appointmentId: Appointment["_id"];
-  relatedTo: Appointment["relatedTo"]; // Assuming you have access to relatedTo
+  caseId: string;
+  appointmentId: string;
 }
 
-const MarkAsDone = ({ appointmentId, relatedTo }: Props) => {
-  const { state } = useAuthContext();
+const MarkAsDone = ({ caseId, appointmentId }: Props) => {
+  // Pass caseId and appointmentId as props
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { markAsDone } = useMarkAppointmentAsDone();
+  const { state } = useAuthContext();
   const [comment, setComment] = useState("");
+  const initialRef = useRef();
+  const finalRef = useRef();
 
-  const user = state.user?.username || "Unknown user";
-  console.log("id", appointmentId);
+  const username = state.user?.username || "null";
+
+  const { markAsDone } = useMarkAppointmentInCaseAsDone(); // Use the hook
 
   const handleMarkAsDone = async () => {
-    try {
-      // Call the markAsDone function with appointmentId, isDone, user, comment, and relatedTo
-      const updatedAppointment = await markAsDone(
-        appointmentId,
-        true,
-        user,
-        comment,
-        relatedTo
-      );
+    const updatedCase = await markAsDone(
+      caseId,
+      appointmentId,
+      true,
+      username,
+      comment
+    );
 
-      // Handle the response from the backend, e.g., show a success message
-      console.log("Appointment marked as done:", updatedAppointment);
-
-      // Close the modal
+    if (updatedCase) {
       onClose();
-    } catch (error) {
-      console.error("Error marking appointment as done:", error);
-      // Handle errors here, e.g., show an error message
     }
   };
-
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
 
   return (
     <>
@@ -84,7 +76,7 @@ const MarkAsDone = ({ appointmentId, relatedTo }: Props) => {
               <Input
                 placeholder="Detalle de actividad"
                 value={comment}
-                onChange={(e) => setComment(e.target.value)} // Update the comment state
+                onChange={(e) => setComment(e.target.value)}
               />
             </FormControl>
           </ModalBody>

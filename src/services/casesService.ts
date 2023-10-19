@@ -1,3 +1,4 @@
+
 // ./src/services/casesService.ts
 import axiosInstance from "./axios";
 import { Case } from "../data/models";
@@ -117,3 +118,13 @@ export const getCasesWithAppointments = async (): Promise<Case[]> => {
     return [];
   }
 };
+
+export const markAppointmentInCaseAsDone = async (caseId: string, appointmentId: string, isDone: boolean, user: string, comment: string): Promise<Case | null> => {
+  try {
+    const response = await axiosInstance.put(`/cases/${caseId}/appointments/${appointmentId}/`,{isDone, user, comment});
+    return response.data as Case;
+  } catch (error) {
+    console.error("Error marking appointment as done:", error);
+    return null;
+  }
+}

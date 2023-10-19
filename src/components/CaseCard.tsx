@@ -22,8 +22,15 @@ const CaseCard = ({ caseData }: Props) => {
     return null;
   }
 
-  const { caseName, caseID, caseJury, caseLink, caseClient, appointments } =
-    caseData;
+  const {
+    caseName,
+    caseID,
+    caseJury,
+    caseLink,
+    caseClient,
+    appointments,
+    _id,
+  } = caseData;
 
   return (
     <Card size="lg" variant="outline" h={"600px"}>
@@ -51,7 +58,7 @@ const CaseCard = ({ caseData }: Props) => {
               Documentacion del caso <ExternalLinkIcon mx="2px" />
             </Link>
           </Box>
-          <AppointmentCaseAlert appointments={appointments} />
+          <AppointmentCaseAlert appointments={appointments} caseId={_id} />
         </Stack>
       </CardBody>
     </Card>

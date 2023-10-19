@@ -19,4 +19,3 @@ export const useMarkAppointmentAsDone = () => {
     return { markAsDone };
   };
   
-  export default useMarkAppointmentAsDone;
